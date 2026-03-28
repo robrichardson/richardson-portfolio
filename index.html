@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Richardson — Graphic Designer &amp; Art Director</title>
+  <meta name="description" content="Richardson is a Manchester-based multidisciplinary graphic designer and art director specialising in branding, print, packaging, digital, and campaign design.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Richardson — Graphic Designer &amp; Art Director">
+  <meta property="og:description" content="Manchester-based graphic designer and art director. Branding, print, packaging, digital, campaigns.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://richardson.design">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Richardson — Graphic Designer &amp; Art Director">
+  <meta name="twitter:description" content="Manchester-based graphic designer and art director. Branding, print, packaging, digital, campaigns.">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://richardson.design">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Richardson",
+    "jobTitle": "Graphic Designer & Art Director",
+    "url": "https://richardson.design",
+    "address": { "@type": "PostalAddress", "addressLocality": "Manchester", "addressCountry": "GB" },
+    "knowsAbout": ["Graphic Design","Brand Identity","Art Direction","Print Design","Packaging Design","Digital Design","Campaign Design"]
+  }
+  </script>
+
+  <style>
+    /* =========================================
+       RESET & TOKENS
+    ========================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0e0e0e;
+      --bg2:       #141414;
+      --bg3:       #1c1c1c;
+      --text:      #f0ede8;
+      --muted:     #5a5856;
+      --gold:      #6ea8c8;
+      --gold-glow: rgba(110,168,200,.12);
+      --line:      rgba(255,255,255,.055);
+      --ease:      cubic-bezier(.25,.46,.45,.94);
+      --ff-disp:   'Bebas Neue', sans-serif;
+      --ff-body:   'Inter', sans-serif;
+      --ff-mono:   'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; text-decoration: none; }
+
+    /* =========================================
+       COLUMN GRID OVERLAY
+    ========================================= */
+    .col-grid {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 0;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+    }
+    .col-grid span { border-right: 1px solid var(--line); }
+
+    /* CURSOR: removed — using browser default */
+    #cur, #cur-ring { display: none; }
+
+    /* =========================================
+       LOADER
+    ========================================= */
+    #loader {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      z-index: 8000;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 20px;
+      transition: opacity .7s var(--ease), visibility .7s;
+    }
+    #loader.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+    #loader img  { height: 44px; filter: invert(1); opacity: 0; animation: lFade .5s ease .3s forwards; }
+    .l-bar       { width: 0; height: 1px; background: var(--gold); animation: lBar 1.6s ease .5s forwards; }
+    @keyframes lFade { to { opacity: .85; } }
+    @keyframes lBar  { 0%{width:0;opacity:1} 70%{width:180px;opacity:1} 100%{width:180px;opacity:0} }
+
+    /* =========================================
+       NAV
+    ========================================= */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      padding: 28px 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: padding .35s var(--ease), background .35s, backdrop-filter .35s;
+    }
+    nav.stuck {
+      padding: 16px 56px;
+      background: rgba(14,14,14,.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .n-logo img { height: 44px; filter: invert(1); opacity: .88; }
+    .n-links    { list-style: none; display: flex; gap: 44px; }
+    .n-links a  {
+      font: 500 14px/1 var(--ff-mono);
+      letter-spacing: .13em; text-transform: uppercase;
+      color: var(--muted); transition: color .2s;
+    }
+    .n-links a:hover { color: var(--text); }
+    .n-btn {
+      font: 500 14px/1 var(--ff-mono);
+      letter-spacing: .13em; text-transform: uppercase;
+      color: var(--bg); background: var(--gold);
+      padding: 11px 22px; border-radius: 100px;
+      transition: opacity .2s, transform .2s;
+    }
+    .n-btn:hover { opacity: .82; transform: translateY(-1px); }
+    .n-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .n-burger span { display: block; width: 24px; height: 1.5px; background: var(--text); transition: all .3s; }
+
+    /* =========================================
+       HERO
+    ========================================= */
+    #hero {
+      position: relative; min-height: 66svh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 56px 88px; overflow: hidden;
+    }
+    /* portrait photo */
+    .h-portrait {
+      position: absolute; bottom: 0; right: 56px;
+      width: 17%; height: auto;
+      pointer-events: none;
+    }
+    .h-portrait img {
+      width: 100%; height: auto;
+      object-fit: contain; object-position: bottom center;
+      display: block;
+    }
+    /* fade portrait into background on left edge */
+    .h-portrait::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, var(--bg) 0%, transparent 30%);
+      z-index: 1;
+    }
+    /* fade portrait into background on bottom */
+    .h-portrait::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, var(--bg) 0%, transparent 35%);
+      z-index: 1;
+    }
+    .h-avail {
+      display: flex; align-items: center; gap: 9px;
+      font: 400 14px/1 var(--ff-mono);
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 36px;
+    }
+    .h-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #4ade80; flex-shrink: 0;
+      animation: ping 2.4s ease-in-out infinite;
+    }
+    @keyframes ping {
+      0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,.5); }
+      50%      { box-shadow: 0 0 0 7px rgba(74,222,128,0); }
+    }
+    .h-name {
+      font: normal clamp(53px,9.5vw,147px)/.88 var(--ff-disp);
+      letter-spacing: .015em; position: relative; z-index: 1;
+      color: var(--gold);
+    }
+    .h-sub {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-top: 44px; position: relative; z-index: 1;
+    }
+    .h-bio { max-width: 360px; }
+    .h-bio p {
+      font: 300 16px/1.75 var(--ff-body);
+      color: rgba(240,237,232,.55);
+    }
+    .h-loc { text-align: right; }
+    .h-loc-label {
+      font: 400 14px/1 var(--ff-mono);
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 6px;
+    }
+    .h-loc-val {
+      font: 400 14px/1 var(--ff-mono);
+      color: var(--text);
+    }
+    /* scroll indicator — fixed, vertically centred on right */
+    .h-scroll {
+      position: fixed; right: 40px; top: 50%;
+      transform: translateY(-50%) rotate(180deg);
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      font: 400 14px/1 var(--ff-mono);
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted); writing-mode: vertical-rl;
+      z-index: 10;
+    }
+    .h-scroll::after {
+      content: '';
+      width: 1px; height: 56px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: sLine 2s ease-in-out infinite;
+    }
+    @keyframes sLine {
+      0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
+      55%  { transform: scaleY(1); opacity: 1; }
+      100% { transform: scaleY(1); opacity: 0; }
+    }
+
+    /* =========================================
+       MARQUEE
+    ========================================= */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--bg2); padding: 17px 0;
+    }
+    .marquee-track {
+      display: flex; white-space: nowrap;
+      animation: mq 28s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    .m-item {
+      flex-shrink: 0;
+      font: normal 14px/1 var(--ff-disp);
+      letter-spacing: .28em; color: var(--muted);
+      padding: 0 28px; display: inline-flex; align-items: center; gap: 28px;
+    }
+    .m-sep { color: var(--gold); font-size: 15px; }
+    @keyframes mq { to { transform: translateX(-50%); } }
+
+    /* =========================================
+       SHARED SECTION SCAFFOLDING
+    ========================================= */
+    .s-label {
+      font: 500 14px/1 var(--ff-mono);
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 14px;
+    }
+    .s-title {
+      font: normal clamp(48px,6vw,84px)/1 var(--ff-disp);
+      letter-spacing: .02em;
+    }
+    .s-head {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      padding-bottom: 36px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 72px;
+    }
+    .s-count {
+      font: 400 14px/1 var(--ff-mono);
+      letter-spacing: .1em; color: var(--muted);
+    }
+
+    /* =========================================
+       WORK SECTION
+    ========================================= */
+    #work { padding: 120px 56px; }
+
+    .proj-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      margin-bottom: 3px;
+    }
+    .proj-grid-sm {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+    .proj-grid-sm .proj-name {
+      font-size: clamp(16px, 2vw, 28px);
+    }
+    .proj-grid-sm .proj-copy {
+      padding: 18px 20px 22px;
+    }
+
+    .proj {
+      position: relative;
+      background: var(--bg2); cursor: pointer;
+    }
+
+    .proj-img {
+      position: relative; overflow: hidden;
+    }
+
+    .proj-img img {
+      width: 100%; height: auto; display: block;
+      transition: transform .75s var(--ease);
+    }
+    .proj:hover .proj-img img { transform: scale(1.04); }
+
+    .proj-veil {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top,
+        rgba(10,10,10,.96) 0%,
+        rgba(10,10,10,.35) 45%,
+        transparent 100%);
+    }
+
+    .proj-copy {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 28px 32px 32px;
+      transform: translateY(6px);
+      transition: transform .45s var(--ease);
+    }
+    .proj:hover .proj-copy { transform: translateY(0); }
+
+    .proj-num {
+      font: 400 14px/1 var(--ff-mono);
+      letter-spacing: .1em; color: var(--gold);
+      margin-bottom: 9px;
+    }
+    .proj-name {
+      font: normal clamp(22px,3vw,44px)/1 var(--ff-disp);
+      letter-spacing: .02em; margin-bottom: 14px;
+    }
+    .proj-tags {
+      display: flex; flex-wrap: wrap; gap: 7px;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity .4s .1s var(--ease), transform .4s .1s var(--ease);
+    }
+    .proj:hover .proj-tags { opacity: 1; transform: translateY(0); }
+    .proj-link-cta {
+      display: inline-block;
+      font: 500 14px/1 var(--ff-mono);
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--gold); margin-top: 14px;
+      opacity: 0; transform: translateY(6px);
+      transition: opacity .35s .2s var(--ease), transform .35s .2s var(--ease);
+    }
+    .proj:hover .proj-link-cta { opacity: 1; transform: translateY(0); }
+
+    .proj-tag {
+      font: 400 14px/1 var(--ff-mono);
+      letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(240,237,232,.5);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 5px 11px; border-radius: 100px;
+    }
+
+    /* =========================================
+       ABOUT
+    ========================================= */
+    #about {
+      padding: 120px 56px;
+      background: var(--bg2);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: start;
+    }
+    .about-txt .s-label { margin-bottom: 24px; }
+    .about-txt h2 {
+      font: normal clamp(40px,5vw,72px)/1 var(--ff-disp);
+      letter-spacing: .02em; margin-bottom: 36px;
+    }
+    .about-txt h2 em { font-style: normal; color: var(--gold); }
+    .about-txt p {
+      font: 300 16px/1.82 var(--ff-body);
+      color: rgba(240,237,232,.6);
+      margin-bottom: 20px;
+    }
+    .about-txt p:last-of-type { margin-bottom: 44px; }
+    .a-cta {
+      font: 500 14px/1 var(--ff-mono);
+      letter-spacing: .13em; text-transform: uppercase;
+      color: var(--gold);
+      display: inline-flex; align-items: center; gap: 10px;
+      border-bottom: 1px solid rgba(110,168,200,.3);
+      padding-bottom: 5px;
+      transition: gap .25s, border-color .25s;
+    }
+    .a-cta:hover { gap: 18px; border-color: var(--gold); }
+
+    .stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3px;
+    }
+    .stat {
+      background: var(--bg3); padding: 40px 32px;
+    }
+    .stat-n {
+      font: normal clamp(44px,5vw,68px)/1 var(--ff-disp);
+      color: var(--gold); margin-bottom: 10px;
+    }
+    .stat-l {
+      font: 400 14px/1 var(--ff-mono);
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .discs {
+      grid-column: 1 / -1;
+      margin-top: 64px; padding-top: 64px;
+      border-top: 1px solid var(--line);
+    }
+    .discs .s-label { margin-bottom: 22px; }
+    .disc-list { display: flex; flex-wrap: wrap; gap: 10px; }
+    .disc-chip {
+      font: 300 14px/1 var(--ff-body);
+      color: var(--muted);
+      border: 1px solid var(--line);
+      padding: 11px 20px; border-radius: 100px;
+      transition: color .2s, border-color .2s, background .2s;
+    }
+    .disc-chip:hover {
+      color: var(--text);
+      border-color: rgba(110,168,200,.25);
+      background: var(--gold-glow);
+    }
+
+    /* =========================================
+       SERVICES
+    ========================================= */
+    #services { padding: 120px 56px; }
+    .svc-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 3px; margin-top: 0;
+    }
+    .svc {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      padding: 48px 40px;
+      position: relative; overflow: hidden;
+      transition: border-color .35s, background .35s;
+    }
+    .svc::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width .45s var(--ease);
+    }
+    .svc:hover::after { width: 100%; }
+    .svc:hover { border-color: rgba(110,168,200,.18); background: var(--bg3); }
+    .svc-n {
+      font: 400 14px/1 var(--ff-mono);
+      letter-spacing: .1em; color: var(--gold);
+      margin-bottom: 32px;
+    }
+    .svc-t {
+      font: normal 28px/1 var(--ff-disp);
+      letter-spacing: .02em; margin-bottom: 16px;
+    }
+    .svc-d {
+      font: 300 14px/1.72 var(--ff-body);
+      color: var(--muted);
+    }
+
+    /* =========================================
+       CONTACT
+    ========================================= */
+    #contact {
+      padding: 120px 56px;
+      background: var(--bg2);
+      border-top: 1px solid var(--line);
+      position: relative; overflow: hidden;
+    }
+    .c-ghost {
+      position: absolute; bottom: -50px; right: -10px;
+      font: normal clamp(80px,13vw,200px)/1 var(--ff-disp);
+      color: rgba(255,255,255,.018);
+      pointer-events: none; user-select: none;
+      letter-spacing: .02em;
+    }
+    .c-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      position: relative; z-index: 1;
+    }
+    .c-inner .s-label { margin-bottom: 28px; }
+    .c-head {
+      font: normal clamp(44px,6vw,100px)/.92 var(--ff-disp);
+      letter-spacing: .01em; margin-bottom: 40px;
+    }
+    .c-head em { font-style: normal; color: var(--gold); }
+    .c-email {
+      display: block; width: fit-content;
+      font: normal clamp(14px,1.8vw,22px)/1 var(--ff-disp);
+      letter-spacing: .05em;
+      color: var(--muted); margin-bottom: 40px;
+      position: relative;
+      transition: color .25s;
+    }
+    .c-email::after {
+      content: '';
+      position: absolute; bottom: -5px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width .4s var(--ease);
+    }
+    .c-email:hover { color: var(--text); }
+    .c-email:hover::after { width: 100%; }
+    .c-socials { display: flex; gap: 36px; flex-wrap: wrap; }
+    /* Contact form */
+    .c-form { display: flex; flex-direction: column; gap: 16px; }
+    .c-form-title {
+      font: normal 22px/1 var(--ff-disp);
+      letter-spacing: .04em;
+      color: var(--text); margin-bottom: 8px;
+    }
+    .c-form input,
+    .c-form textarea {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font: 300 14px/1.5 var(--ff-body);
+      padding: 14px 18px;
+      border-radius: 4px;
+      outline: none;
+      transition: border-color .25s;
+      resize: vertical;
+    }
+    .c-form input::placeholder,
+    .c-form textarea::placeholder { color: var(--muted); }
+    .c-form input:focus,
+    .c-form textarea:focus { border-color: rgba(110,168,200,.5); }
+    .c-form textarea { min-height: 130px; }
+    .c-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .c-form-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      font: 500 14px/1 var(--ff-mono);
+      letter-spacing: .13em; text-transform: uppercase;
+      color: var(--bg); background: var(--gold);
+      border: none; cursor: pointer;
+      padding: 14px 28px; border-radius: 100px;
+      align-self: flex-start;
+      transition: opacity .2s, transform .2s;
+    }
+    .c-form-btn:hover { opacity: .82; transform: translateY(-1px); }
+    .c-form-btn:disabled { opacity: .45; transform: none; cursor: not-allowed; }
+    .c-form-success {
+      display: none; flex-direction: column; gap: 14px;
+      padding: 40px; background: var(--bg3); border: 1px solid rgba(110,168,200,.25);
+      border-radius: 4px; text-align: center;
+    }
+    .c-form-success.show { display: flex; }
+    .c-form-success svg { width: 40px; height: 40px; stroke: var(--gold); fill: none; stroke-width: 1.5; margin: 0 auto; }
+    .c-form-success p { font: 300 16px/1.6 var(--ff-body); color: rgba(240,237,232,.65); }
+    .c-form-success strong { font-weight: 500; color: var(--text); }
+    .c-form-error { display: none; font: 400 14px/1.5 var(--ff-mono); color: #e07070; margin-top: -8px; }
+    .c-form-error.show { display: block; }
+    @media (max-width: 800px) {
+      .c-layout { grid-template-columns: 1fr; gap: 48px; }
+      .c-form-row { grid-template-columns: 1fr; }
+    }
+    .c-soc {
+      font: 500 14px/1 var(--ff-mono);
+      letter-spacing: .13em; text-transform: uppercase;
+      color: var(--muted); transition: color .2s;
+    }
+    .c-soc:hover { color: var(--gold); }
+
+    /* =========================================
+       FOOTER
+    ========================================= */
+    footer {
+      padding: 40px 56px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      grid-template-rows: auto auto auto;
+      gap: 14px 40px;
+      align-items: start;
+    }
+    footer > img  { grid-column: 1; grid-row: 1 / 4; align-self: center; }
+    .f-socials    { grid-column: 2; grid-row: 1; }
+    .f-top        { grid-column: 3; grid-row: 1 / 4; align-self: center; }
+    footer img { height: 34px; filter: invert(1); opacity: .35; }
+    .f-socials {
+      display: flex; gap: 28px; flex-wrap: wrap; align-items: center;
+    }
+    .f-contact-info {
+      grid-column: 2; grid-row: 2;
+      display: flex; flex-direction: column; gap: 5px;
+    }
+    .f-detail {
+      font: 400 14px/1.5 var(--ff-mono);
+      letter-spacing: .05em; color: var(--muted);
+      transition: color .2s;
+    }
+    a.f-detail:hover { color: var(--gold); }
+    .f-copy {
+      font: 400 14px/1 var(--ff-mono);
+      letter-spacing: .05em; color: var(--muted);
+      grid-column: 2; grid-row: 3;
+    }
+    .f-top {
+      font: 400 14px/1 var(--ff-mono);
+      letter-spacing: .13em; text-transform: uppercase;
+      color: var(--muted); cursor: pointer;
+      transition: color .2s;
+    }
+    .f-top:hover { color: var(--gold); }
+
+    /* =========================================
+       SCROLL REVEAL
+    ========================================= */
+    .rv {
+      opacity: 0;
+      transform: translateY(42px);
+      transition: opacity .85s var(--ease), transform .85s var(--ease);
+    }
+    .rv.in { opacity: 1; transform: translateY(0); }
+    .rv.d1 { transition-delay: .1s; }
+    .rv.d2 { transition-delay: .2s; }
+    .rv.d3 { transition-delay: .3s; }
+
+    /* =========================================
+       RESPONSIVE
+    ========================================= */
+    @media (max-width: 1100px) {
+      nav, nav.stuck { padding-left: 36px; padding-right: 36px; }
+      #hero, #work, #about, #services, #contact { padding-left: 36px; padding-right: 36px; }
+      footer { padding-left: 36px; padding-right: 36px; }
+      .h-scroll { right: 24px; }
+    }
+
+    @media (max-width: 800px) {
+      nav { padding: 20px 24px; }
+      nav.stuck { padding: 13px 24px; }
+      .n-links { display: none; }
+      .n-links.open {
+        display: flex; flex-direction: column;
+        position: fixed; inset: 0;
+        background: var(--bg);
+        justify-content: center; align-items: center;
+        gap: 36px; z-index: 450;
+      }
+      .n-links.open a { font-size: 14px; }
+      .n-btn  { display: none; }
+      .n-burger { display: flex; position: relative; z-index: 500; }
+
+      #hero, #work, #about, #services, #contact { padding-left: 24px; padding-right: 24px; padding-top: 72px; padding-bottom: 72px; }
+      #hero { padding-top: 0; padding-bottom: 80px; }
+      footer { padding: 24px; display: flex; flex-wrap: wrap; gap: 16px; }
+      footer img { grid-row: unset; }
+      .f-socials, .f-copy, .f-top { grid-column: unset; grid-row: unset; }
+
+      .h-sub  { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .h-loc  { text-align: left; }
+      .h-scroll { display: none; }
+
+      .proj-grid, .proj-grid-sm { grid-template-columns: 1fr; }
+      
+
+      .about-grid     { grid-template-columns: 1fr; gap: 48px; }
+      .discs          { grid-column: 1; }
+
+      .svc-grid       { grid-template-columns: 1fr; }
+
+    }
+
+    @media (max-width: 540px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+      .s-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== LOADER ===== -->
+  <div id="loader" aria-hidden="true">
+    <img src="assets/logo/richardson.png" alt="">
+    <div class="l-bar"></div>
+  </div>
+
+  <!-- ===== COLUMN GRID ===== -->
+  <div class="col-grid" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- ===== CURSOR ===== -->
+  <div id="cur"      aria-hidden="true"></div>
+  <div id="cur-ring" aria-hidden="true"></div>
+
+  <!-- ===== NAV ===== -->
+  <nav id="nav" aria-label="Primary navigation">
+    <div class="n-logo">
+      <img src="assets/logo/richardson.png" alt="Richardson — home">
+    </div>
+    <ul class="n-links" id="nLinks">
+      <li><a href="#work">Work</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="n-btn">Hire Me</a>
+    <div class="n-burger" id="burger" role="button" aria-label="Toggle navigation" tabindex="0">
+      <span></span><span></span>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section id="hero" aria-label="Introduction">
+      <div class="h-avail">
+        <span class="h-dot" aria-hidden="true"></span>
+        Available for new projects
+      </div>
+
+      <h1 class="h-name">RICHARDSON<br>GRAPHIC DESIGN</h1>
+
+      <div class="h-sub">
+        <div class="h-bio">
+          <p>Rob Richardson is a Manchester-based independent graphic designer working with brands and agencies across the UK with specialism in eLearning and the cultural sector.</p>
+        </div>
+        <div class="h-loc">
+          <p class="h-loc-label">Based in</p>
+          <p class="h-loc-val">Manchester, UK</p>
+        </div>
+      </div>
+
+      <div class="h-scroll" aria-hidden="true">Scroll</div>
+    </section>
+
+    <!-- ===== MARQUEE ===== -->
+    <div class="marquee-wrap" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="m-item">BRANDING <span class="m-sep">·</span> PRINT DESIGN <span class="m-sep">·</span> DIGITAL <span class="m-sep">·</span> PACKAGING <span class="m-sep">·</span> CAMPAIGNS <span class="m-sep">·</span> MOTION <span class="m-sep">·</span> EDITORIAL <span class="m-sep">·</span> IDENTITY <span class="m-sep">·</span> OOH <span class="m-sep">·</span> ART DIRECTION <span class="m-sep">·</span></div>
+        <div class="m-item">BRANDING <span class="m-sep">·</span> PRINT DESIGN <span class="m-sep">·</span> DIGITAL <span class="m-sep">·</span> PACKAGING <span class="m-sep">·</span> CAMPAIGNS <span class="m-sep">·</span> MOTION <span class="m-sep">·</span> EDITORIAL <span class="m-sep">·</span> IDENTITY <span class="m-sep">·</span> OOH <span class="m-sep">·</span> ART DIRECTION <span class="m-sep">·</span></div>
+      </div>
+    </div>
+
+    <!-- ===== WORK ===== -->
+    <section id="work" aria-label="Selected work portfolio">
+
+      <div class="s-head rv">
+        <div>
+          <p class="s-label">Portfolio</p>
+          <h2 class="s-title">SELECTED<br>WORK</h2>
+        </div>
+        <span class="s-count">12 Projects</span>
+      </div>
+
+      <!-- PRIMARY GRID: 2 columns -->
+      <div class="proj-grid">
+
+        <!-- 01 Manchester Museum -->
+        <a href="project-manchester-museum.html" class="proj rv" aria-label="Manchester Museum Volunteer Handbook editorial design project">
+          <div class="proj-img">
+            <img src="assets/images/32_MM_Vol_Brochure_Cover-768x768.jpg.jpeg"
+                 alt="Manchester Museum Volunteer Handbook — stacked teal printed booklets with white logomark and bold typography"
+                 loading="lazy">
+          </div>
+          <div class="proj-veil"></div>
+          <div class="proj-copy">
+            <p class="proj-num">01</p>
+            <h3 class="proj-name">MANCHESTER MUSEUM</h3>
+            <div class="proj-tags">
+              <span class="proj-tag">Print</span>
+              <span class="proj-tag">Editorial</span>
+              <span class="proj-tag">Branding</span>
+            </div>
+            <span class="proj-link-cta">View Project →</span>
+          </div>
+        </a>
+
+        <!-- 02 Centauri's Shadow -->
+        <a href="project-centauris-shadow.html" class="proj rv d1" aria-label="Centauri's Shadow book cover design project">
+          <div class="proj-img">
+            <img src="assets/images/Centauri_Shadow_Cover.jpg"
+                 alt="Centauri's Shadow sci-fi novel cover — astronaut silhouette against deep space backdrop with dramatic typography"
+                 loading="lazy">
+          </div>
+          <div class="proj-veil"></div>
+          <div class="proj-copy">
+            <p class="proj-num">02</p>
+            <h3 class="proj-name">CENTAURI'S SHADOW</h3>
+            <div class="proj-tags">
+              <span class="proj-tag">Book Cover</span>
+              <span class="proj-tag">Typography</span>
+              <span class="proj-tag">Editorial</span>
+            </div>
+            <span class="proj-link-cta">View Project →</span>
+          </div>
+        </a>
+
+        <!-- 03 Anders Pink -->
+        <a href="project-anders-pink.html" class="proj rv" aria-label="Anders Pink website design project">
+          <div class="proj-img">
+            <img src="assets/images/17_Anders-Pink-Home.jpg.jpeg"
+                 alt="Anders Pink enterprise content curation platform — homepage design with laptop mockup on teal and red background"
+                 loading="lazy">
+          </div>
+          <div class="proj-veil"></div>
+          <div class="proj-copy">
+            <p class="proj-num">03</p>
+            <h3 class="proj-name">ANDERS PINK</h3>
+            <div class="proj-tags">
+              <span class="proj-tag">Web Design</span>
+              <span class="proj-tag">Digital</span>
+              <span class="proj-tag">UI/UX</span>
+            </div>
+            <span class="proj-link-cta">View Project →</span>
+          </div>
+        </a>
+
+        <!-- 04 Insights Media -->
+        <a href="project-insights-media.html" class="proj rv d1" aria-label="Insights Media brand identity and business card project">
+          <div class="proj-img">
+            <img src="assets/images/20_Insights_Coffee_Busi_Card.jpg.jpeg"
+                 alt="Insights Media business cards — red and white double-sided cards floating on coral background with bold circular logo"
+                 loading="lazy">
+          </div>
+          <div class="proj-veil"></div>
+          <div class="proj-copy">
+            <p class="proj-num">04</p>
+            <h3 class="proj-name">INSIGHTS MEDIA</h3>
+            <div class="proj-tags">
+              <span class="proj-tag">Brand Identity</span>
+              <span class="proj-tag">Print</span>
+            </div>
+            <span class="proj-link-cta">View Project →</span>
+          </div>
+        </a>
+
+        <!-- 05 MindTools -->
+        <a href="project-mindtools.html" class="proj rv" aria-label="MindTools custom learning brochure design project">
+          <div class="proj-img">
+            <img src="assets/images/06_MinTools_Brochure_Cover-1024x768.jpg.jpeg"
+                 alt="MindTools custom learning brochure — fanned stack of navy printed booklets with circular portrait photograph"
+                 loading="lazy">
+          </div>
+          <div class="proj-veil"></div>
+          <div class="proj-copy">
+            <p class="proj-num">05</p>
+            <h3 class="proj-name">MINDTOOLS</h3>
+            <div class="proj-tags">
+              <span class="proj-tag">Print</span>
+              <span class="proj-tag">Editorial</span>
+            </div>
+            <span class="proj-link-cta">View Project →</span>
+          </div>
+        </a>
+
+        <!-- 06 BCLP Law -->
+        <a href="project-bclp.html" class="proj rv d1" aria-label="BCLP Law exhibition roller banners project">
+          <div class="proj-img">
+            <img src="assets/images/18_BCLP_Law_Presentation-6.jpg.jpeg"
+                 alt="BCLP Law infrastructure practice roller banners — pair of pull-up exhibition stands against dark teal studio background"
+                 loading="lazy">
+          </div>
+          <div class="proj-veil"></div>
+          <div class="proj-copy">
+            <p class="proj-num">06</p>
+            <h3 class="proj-name">BCLP LAW</h3>
+            <div class="proj-tags">
+              <span class="proj-tag">Print</span>
+              <span class="proj-tag">Exhibition</span>
+            </div>
+            <span class="proj-link-cta">View Project →</span>
+          </div>
+        </a>
+
+        <!-- 07 Manchester Art Fair -->
+        <a href="project-manchester-art-fair.html" class="proj rv" aria-label="Manchester Art Fair billboard campaign project">
+          <div class="proj-img">
+            <img src="assets/images/RS218120_Albion-Street-East006_Crop-1.jpg"
+                 alt="Manchester Art Fair 2023 — street-level poster hoardings on Albion Street featuring illustrated and photographic artwork"
+                 loading="lazy">
+          </div>
+          <div class="proj-veil"></div>
+          <div class="proj-copy">
+            <p class="proj-num">07</p>
+            <h3 class="proj-name">MANCHESTER ART FAIR</h3>
+            <div class="proj-tags">
+              <span class="proj-tag">OOH Advertising</span>
+              <span class="proj-tag">Campaign</span>
+            </div>
+            <span class="proj-link-cta">View Project →</span>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- SECONDARY GRID: 3 columns, smaller -->
+      <div class="proj-grid-sm">
+
+        <!-- 08 Vita-Lise -->
+        <a href="project-vita-lise.html" class="proj rv" aria-label="Vita-Lise packaging design project">
+          <div class="proj-img">
+            <img src="assets/images/26_vitalise-768x502.jpg.jpeg"
+                 alt="Vita-Lise vitamin supplement packaging — three product variants in bold black matte pouches with neon colour accents"
+                 loading="lazy">
+          </div>
+          <div class="proj-veil"></div>
+          <div class="proj-copy">
+            <p class="proj-num">08</p>
+            <h3 class="proj-name">VITA-LISE</h3>
+            <div class="proj-tags">
+              <span class="proj-tag">Packaging</span>
+              <span class="proj-tag">Brand Identity</span>
+            </div>
+            <span class="proj-link-cta">View Project →</span>
+          </div>
+        </a>
+
+        <!-- 09 Stork -->
+        <a href="project-stork.html" class="proj rv d1" aria-label="Stork fertility service brand identity and website project">
+          <div class="proj-img">
+            <img src="assets/images/stork_900x600.jpg"
+                 alt="Stork fertility medication service — brand mark and website mockup on vivid yellow background"
+                 loading="lazy">
+          </div>
+          <div class="proj-veil"></div>
+          <div class="proj-copy">
+            <p class="proj-num">09</p>
+            <h3 class="proj-name">STORK</h3>
+            <div class="proj-tags">
+              <span class="proj-tag">Branding</span>
+              <span class="proj-tag">Web Design</span>
+            </div>
+            <span class="proj-link-cta">View Project →</span>
+          </div>
+        </a>
+
+        <!-- 10 Boohoo -->
+        <a href="project-boohoo.html" class="proj rv d2" aria-label="Boohoo Twinning is Winning advertising campaign">
+          <div class="proj-img">
+            <img src="assets/images/34_boohoo_home-300x300.jpg.jpeg"
+                 alt="Boohoo 'Twinning is Winning' campaign — bold typographic poster with male model seated against teal background"
+                 loading="lazy">
+          </div>
+          <div class="proj-veil"></div>
+          <div class="proj-copy">
+            <p class="proj-num">10</p>
+            <h3 class="proj-name">BOOHOO</h3>
+            <div class="proj-tags">
+              <span class="proj-tag">Campaign</span>
+              <span class="proj-tag">Advertising</span>
+            </div>
+            <span class="proj-link-cta">View Project →</span>
+          </div>
+        </a>
+
+        <!-- 11 BMI On The Spot -->
+        <a href="project-bmi.html" class="proj rv" aria-label="BMI On The Spot logo and brand identity project">
+          <div class="proj-img">
+            <img src="assets/images/21_bmi_600x600-300x300.jpg.jpeg"
+                 alt="BMI On The Spot health workshops logo — circular typographic mark in white on teal background"
+                 loading="lazy">
+          </div>
+          <div class="proj-veil"></div>
+          <div class="proj-copy">
+            <p class="proj-num">11</p>
+            <h3 class="proj-name">BMI ON THE SPOT</h3>
+            <div class="proj-tags">
+              <span class="proj-tag">Brand Identity</span>
+              <span class="proj-tag">Logo Design</span>
+            </div>
+            <span class="proj-link-cta">View Project →</span>
+          </div>
+        </a>
+
+        <!-- 12 Ready Player One -->
+        <a href="project-ready-player-one.html" class="proj rv d1" aria-label="Ready Player One motion graphics and animation project">
+          <div class="proj-img">
+            <img src="assets/images/48_Ready_player_one.gif"
+                 alt="Ready Player One animated digital artwork — looping motion graphic GIF"
+                 loading="lazy">
+          </div>
+          <div class="proj-veil"></div>
+          <div class="proj-copy">
+            <p class="proj-num">12</p>
+            <h3 class="proj-name">READY PLAYER ONE</h3>
+            <div class="proj-tags">
+              <span class="proj-tag">Motion</span>
+              <span class="proj-tag">Animation</span>
+            </div>
+            <span class="proj-link-cta">View Project →</span>
+          </div>
+        </a>
+
+        <!-- 13 JabFace -->
+        <a href="project-jabface.html" class="proj rv d2" aria-label="JabFace NHS flu vaccination campaign project">
+          <div class="proj-img">
+            <img src="https://robrichardson.co.uk/wp-content/uploads/2017/11/jabface_900x600_2.jpg"
+                 alt="#JabFace — Liverpool Community Health NHS transmedia campaign, desktop and mobile mockup"
+                 loading="lazy">
+          </div>
+          <div class="proj-veil"></div>
+          <div class="proj-copy">
+            <p class="proj-num">13</p>
+            <h3 class="proj-name">#JABFACE</h3>
+            <div class="proj-tags">
+              <span class="proj-tag">Campaign</span>
+              <span class="proj-tag">Digital</span>
+            </div>
+            <span class="proj-link-cta">View Project →</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" aria-label="About Richardson">
+      <div class="about-grid">
+
+        <div class="about-txt rv">
+          <p class="s-label">About</p>
+          <h2>THE<br>DESIGNER<br>BEHIND<br>THE <em>WORK</em></h2>
+          <p>I'm a Manchester-based graphic designer and art director with over a decade of experience crafting brand identities, print collateral, packaging, and digital experiences for clients ranging from start-ups to global enterprises.</p>
+          <p>My approach bridges strategic thinking with meticulous craft — every project begins with understanding the why before touching the how.</p>
+          <a href="#contact" class="a-cta">Start a conversation →</a>
+        </div>
+
+        <div class="stats rv d1">
+          <div class="stat">
+            <p class="stat-n">20+</p>
+            <p class="stat-l">Years Experience</p>
+          </div>
+          <div class="stat">
+            <p class="stat-n">1600+</p>
+            <p class="stat-l">Projects Delivered</p>
+          </div>
+          <div class="stat">
+            <p class="stat-n">50+</p>
+            <p class="stat-l">Happy Clients</p>
+          </div>
+          <div class="stat">
+            <p class="stat-n">10+</p>
+            <p class="stat-l">Years Freelance</p>
+          </div>
+        </div>
+
+        <div class="discs rv">
+          <p class="s-label">Disciplines</p>
+          <div class="disc-list">
+            <span class="disc-chip">Brand Identity</span>
+            <span class="disc-chip">Print &amp; Editorial</span>
+            <span class="disc-chip">Packaging Design</span>
+            <span class="disc-chip">Web &amp; Digital</span>
+            <span class="disc-chip">Campaign &amp; Advertising</span>
+            <span class="disc-chip">Motion Graphics</span>
+            <span class="disc-chip">Art Direction</span>
+            <span class="disc-chip">OOH Advertising</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section id="services" aria-label="Services offered by Richardson">
+
+      <div class="s-head rv">
+        <div>
+          <p class="s-label">What I Do</p>
+          <h2 class="s-title">SERVICES</h2>
+        </div>
+      </div>
+
+      <div class="svc-grid">
+        <div class="svc rv">
+          <p class="svc-n">01</p>
+          <h3 class="svc-t">BRAND IDENTITY</h3>
+          <p class="svc-d">Logos, visual systems, typography, colour, and brand guidelines that make your business unmistakable — at every touchpoint.</p>
+        </div>
+        <div class="svc rv d1">
+          <p class="svc-n">02</p>
+          <h3 class="svc-t">PRINT &amp; EDITORIAL</h3>
+          <p class="svc-d">Brochures, annual reports, handbooks, and magazines. Precise typesetting and layout that communicates clearly and commands attention.</p>
+        </div>
+        <div class="svc rv d2">
+          <p class="svc-n">03</p>
+          <h3 class="svc-t">PACKAGING DESIGN</h3>
+          <p class="svc-d">Shelf-ready packaging that communicates your brand values at a glance — and turns your product into the statement piece it deserves to be.</p>
+        </div>
+        <div class="svc rv">
+          <p class="svc-n">04</p>
+          <h3 class="svc-t">DIGITAL &amp; WEB</h3>
+          <p class="svc-d">Website design, digital campaigns, and UI/UX that translate your brand seamlessly into the digital environment and stand out from the noise.</p>
+        </div>
+        <div class="svc rv d1">
+          <p class="svc-n">05</p>
+          <h3 class="svc-t">CAMPAIGNS &amp; OOH</h3>
+          <p class="svc-d">Advertising campaigns and billboard design that stop people in their tracks — whether they're scrolling a feed or walking past your poster.</p>
+        </div>
+        <div class="svc rv d2">
+          <p class="svc-n">06</p>
+          <h3 class="svc-t">MOTION GRAPHICS</h3>
+          <p class="svc-d">Animated social content, GIFs, and motion-led branding that brings your visual identity to life and earns the scroll-stop.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" aria-label="Contact Richardson">
+      <p class="c-ghost" aria-hidden="true">HELLO</p>
+      <div class="c-layout">
+        <div class="c-inner">
+          <p class="s-label">Get in touch</p>
+          <h2 class="c-head rv">
+            LET'S MAKE<br>SOMETHING<br><em>GREAT.</em>
+          </h2>
+          <a href="mailto:rob@robrichardson.co.uk" class="c-email rv d1">
+            rob@robrichardson.co.uk
+          </a>
+        </div>
+        <form class="c-form rv d1" id="contactForm" novalidate aria-label="Contact form">
+          <p class="c-form-title">SEND A MESSAGE</p>
+          <div class="c-form-row">
+            <input type="text" name="name" placeholder="Your name" required aria-label="Your name">
+            <input type="email" name="email" placeholder="Your email" required aria-label="Your email">
+          </div>
+          <input type="text" name="subject" placeholder="Subject" aria-label="Subject">
+          <textarea name="message" placeholder="Tell me about your project…" required aria-label="Message"></textarea>
+          <p class="c-form-error" id="formError">Something went wrong — please try again or email directly.</p>
+          <button type="submit" class="c-form-btn" id="formBtn">Send message →</button>
+        </form>
+        <div class="c-form-success" id="formSuccess" aria-live="polite">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <p><strong>Message sent — thank you!</strong><br>I'll be in touch as soon as possible.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <img src="assets/logo/richardson.png" alt="Richardson">
+    <div class="f-socials" role="navigation" aria-label="Social media links">
+      <a href="https://www.instagram.com/bobricardobob/" class="c-soc" aria-label="Instagram">Instagram</a>
+      <a href="https://www.linkedin.com/in/rob-richardson-6b659b65/" class="c-soc" aria-label="LinkedIn">LinkedIn</a>
+      <a href="https://www.behance.net/robrichardson" class="c-soc" aria-label="Behance">Behance</a>
+      <a href="https://bsky.app/profile/robxrich.bsky.social" class="c-soc" aria-label="Bluesky">Bluesky</a>
+    </div>
+    <div class="f-contact-info">
+      <a href="tel:07967625928" class="f-detail">Tel: 07967 625 928</a>
+      <span class="f-detail">125 Deansgate, Manchester, M3 2BY, United Kingdom</span>
+    </div>
+    <p class="f-copy">© 2026 Rob Richardson. All rights reserved.</p>
+    <span class="f-top" role="button" tabindex="0" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</span>
+  </footer>
+
+  <script>
+    // ── LOADER ──────────────────────────────
+    window.addEventListener('load', () => {
+      setTimeout(() => document.getElementById('loader').classList.add('gone'), 1900);
+    });
+
+    // ── NAV STUCK ───────────────────────────
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('stuck', scrollY > 70);
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // ── HAMBURGER ───────────────────────────
+    const burger = document.getElementById('burger');
+    const nLinks = document.getElementById('nLinks');
+    burger.addEventListener('click', () => nLinks.classList.toggle('open'));
+    burger.addEventListener('keydown', e => e.key === 'Enter' && nLinks.classList.toggle('open'));
+    nLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nLinks.classList.remove('open')));
+
+    // ── SCROLL REVEAL ────────────────────────
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+    // ── HERO PORTRAIT PARALLAX ───────────────
+    const portrait = document.querySelector('.h-portrait');
+    window.addEventListener('scroll', () => {
+      if (portrait) portrait.style.transform = `translateY(${scrollY * 0.12}px)`;
+    }, { passive: true });
+
+    // ── CONTACT FORM ─────────────────────────
+    // To activate: sign up free at formspree.io, create a form, and paste
+    // your endpoint URL (e.g. https://formspree.io/f/xxxxxxxx) below.
+    const FORM_ENDPOINT = 'https://formspree.io/f/xreoeokl';
+
+    const contactForm = document.getElementById('contactForm');
+    const formBtn     = document.getElementById('formBtn');
+    const formError   = document.getElementById('formError');
+    const formSuccess = document.getElementById('formSuccess');
+
+    contactForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      formError.classList.remove('show');
+
+      if (!contactForm.checkValidity()) {
+        contactForm.reportValidity();
+        return;
+      }
+
+      formBtn.disabled = true;
+      formBtn.textContent = 'Sending…';
+
+      try {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(contactForm)
+        });
+
+        if (res.ok) {
+          contactForm.style.display = 'none';
+          formSuccess.classList.add('show');
+        } else {
+          throw new Error('Server error');
+        }
+      } catch {
+        formError.classList.add('show');
+        formBtn.disabled = false;
+        formBtn.textContent = 'Send message →';
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centauri's Shadow — Richardson</title>
+  <meta name="description" content="Cover design and book layout for sci-fi novel by Ross Garner.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #0e0e0e;
+      --bg2:       #141414;
+      --bg3:       #1c1c1c;
+      --text:      #f0ede8;
+      --muted:     #5a5856;
+      --gold:      #6ea8c8;
+      --gold-glow: rgba(110,168,200,.12);
+      --line:      rgba(255,255,255,.055);
+      --ease:      cubic-bezier(.25,.46,.45,.94);
+      --ff-disp:   'Bebas Neue', sans-serif;
+      --ff-body:   'Inter', sans-serif;
+      --ff-mono:   'JetBrains Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: var(--ff-body); font-size: 16px;
+      line-height: 1.6; overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; text-decoration: none; }
+
+    /* GRID LINES */
+    .col-grid {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      display: grid; grid-template-columns: repeat(6, 1fr);
+    }
+    .col-grid span { border-right: 1px solid var(--line); }
+
+    /* NAV */
+    nav#nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      padding: 28px 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: padding .35s var(--ease), background .35s, backdrop-filter .35s;
+    }
+    nav#nav.stuck {
+      padding: 16px 56px;
+      background: rgba(14,14,14,.82);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .n-logo img { height: 44px; filter: invert(1); opacity: .88; }
+    .n-links    { list-style: none; display: flex; gap: 44px; }
+    .n-links a  {
+      font: 500 14px/1 var(--ff-mono); letter-spacing: .13em; text-transform: uppercase;
+      color: var(--muted); transition: color .2s;
+    }
+    .n-links a:hover { color: var(--text); }
+    .n-btn {
+      font: 500 14px/1 var(--ff-mono); letter-spacing: .13em; text-transform: uppercase;
+      color: var(--bg); background: var(--gold);
+      padding: 11px 22px; border-radius: 100px; transition: opacity .2s, transform .2s;
+    }
+    .n-btn:hover { opacity: .82; transform: translateY(-1px); }
+    .n-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .n-burger span { display: block; width: 24px; height: 1.5px; background: var(--text); transition: all .3s; }
+
+    /* PROJECT HERO */
+    .proj-hero {
+      min-height: 55vh; display: flex; align-items: flex-end;
+      padding: 0 56px 72px; position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+    .proj-hero-img {
+      position: absolute; inset: 0;
+    }
+    .proj-hero-img img {
+      width: 100%; height: 100%; object-fit: cover; opacity: .25;
+    }
+    .proj-hero-veil {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, var(--bg) 0%, transparent 60%);
+    }
+    .proj-hero-inner { position: relative; z-index: 1; }
+    .proj-back {
+      display: inline-flex; align-items: center; gap: 8px;
+      font: 500 14px/1 var(--ff-mono); letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 32px;
+      transition: color .2s, gap .2s;
+    }
+    .proj-back:hover { color: var(--gold); gap: 12px; }
+    .proj-cat {
+      font: 500 14px/1 var(--ff-mono); letter-spacing: .15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .proj-title {
+      font: normal clamp(60px,10vw,150px)/.9 var(--ff-disp);
+      letter-spacing: .015em; margin-bottom: 28px;
+    }
+    .proj-meta {
+      display: flex; gap: 40px; flex-wrap: wrap;
+    }
+    .proj-meta-item { display: flex; flex-direction: column; gap: 6px; }
+    .proj-meta-label {
+      font: 400 14px/1 var(--ff-mono); letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .proj-meta-val {
+      font: 400 14px/1 var(--ff-mono); color: var(--text);
+    }
+
+    /* PROJECT BODY */
+    .proj-body { padding: 100px 56px; }
+    .proj-intro {
+      display: grid; grid-template-columns: 1fr 1.4fr;
+      gap: 80px; margin-bottom: 100px; align-items: start;
+    }
+    .proj-intro h2 {
+      font: normal clamp(32px,3.5vw,52px)/1 var(--ff-disp);
+      letter-spacing: .02em; color: var(--gold);
+    }
+    .proj-intro p {
+      font: 300 16px/1.82 var(--ff-body);
+      color: rgba(240,237,232,.65);
+    }
+    .proj-intro p + p { margin-top: 18px; }
+
+    /* IMAGE BLOCKS */
+    .proj-images { display: flex; flex-direction: column; gap: 3px; }
+    .img-block { width: 100%; overflow: hidden; background: var(--bg2); line-height: 0; }
+    .img-block img { width: 100%; height: auto; display: block; transition: transform .75s var(--ease); }
+    .img-block:hover img { transform: scale(1.02); }
+    .img-row { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+    .img-row .img-block { }
+
+    /* NEXT PROJECT */
+    .next-proj {
+      border-top: 1px solid var(--line);
+      padding: 80px 56px;
+      background: var(--bg2);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 40px; flex-wrap: wrap;
+    }
+    .next-label {
+      font: 500 14px/1 var(--ff-mono); letter-spacing: .15em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 12px;
+    }
+    .next-title {
+      font: normal clamp(32px,5vw,72px)/1 var(--ff-disp);
+      letter-spacing: .02em; color: var(--text);
+      transition: color .25s;
+    }
+    .next-proj:hover .next-title { color: var(--gold); }
+    .next-arrow {
+      width: 64px; height: 64px; border-radius: 50%;
+      border: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: border-color .3s, background .3s;
+    }
+    .next-proj:hover .next-arrow { border-color: var(--gold); background: var(--gold-glow); }
+    .next-arrow svg { width: 20px; height: 20px; stroke: var(--text); fill: none; stroke-width: 1.5; }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 56px; border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      grid-template-rows: auto auto auto;
+      gap: 14px 40px; align-items: start;
+    }
+    footer > img  { grid-column: 1; grid-row: 1 / 4; align-self: center; height: 34px; filter: invert(1); opacity: .35; }
+    .f-socials    { grid-column: 2; grid-row: 1; display: flex; gap: 28px; flex-wrap: wrap; align-items: center; }
+    .f-top        { grid-column: 3; grid-row: 1 / 4; align-self: center; }
+    .f-contact-info { grid-column: 2; grid-row: 2; display: flex; flex-direction: column; gap: 5px; }
+    .f-copy { grid-column: 2; grid-row: 3; }
+    .c-soc {
+      font: 500 14px/1 var(--ff-mono); letter-spacing: .13em; text-transform: uppercase;
+      color: var(--muted); transition: color .2s;
+    }
+    .c-soc:hover { color: var(--gold); }
+    .f-detail { font: 400 14px/1.5 var(--ff-mono); letter-spacing: .05em; color: var(--muted); transition: color .2s; }
+    a.f-detail:hover { color: var(--gold); }
+    .f-copy { font: 400 14px/1 var(--ff-mono); letter-spacing: .05em; color: var(--muted); }
+    .f-top { font: 400 14px/1 var(--ff-mono); letter-spacing: .13em; text-transform: uppercase; color: var(--muted); cursor: pointer; transition: color .2s; }
+    .f-top:hover { color: var(--gold); }
+
+    /* SCROLL REVEAL */
+    .rv { opacity: 0; transform: translateY(36px); transition: opacity .85s var(--ease), transform .85s var(--ease); }
+    .rv.in { opacity: 1; transform: translateY(0); }
+    .rv.d1 { transition-delay: .12s; }
+    .rv.d2 { transition-delay: .24s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      nav#nav, nav#nav.stuck { padding-left: 36px; padding-right: 36px; }
+      .proj-hero, .proj-body, .next-proj { padding-left: 36px; padding-right: 36px; }
+      footer { padding-left: 36px; padding-right: 36px; }
+    }
+    @media (max-width: 800px) {
+      nav#nav { padding: 20px 24px; }
+      nav#nav.stuck { padding: 13px 24px; }
+      .n-links { display: none; }
+      .n-links.open {
+        display: flex; flex-direction: column; position: fixed; inset: 0;
+        background: var(--bg); justify-content: center; align-items: center; gap: 36px; z-index: 450;
+      }
+      .n-links.open a { font-size: 14px; }
+      .n-btn   { display: none; }
+      .n-burger { display: flex; position: relative; z-index: 500; }
+      .proj-hero, .proj-body, .next-proj { padding-left: 24px; padding-right: 24px; }
+      .proj-intro { grid-template-columns: 1fr; gap: 32px; }
+      .img-row { grid-template-columns: 1fr; }
+      footer { padding: 24px; display: flex; flex-wrap: wrap; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="col-grid" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <nav id="nav" aria-label="Primary navigation">
+    <div class="n-logo">
+      <a href="index.html"><img src="assets/logo/richardson.png" alt="Richardson — home"></a>
+    </div>
+    <ul class="n-links" id="nLinks">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a href="index.html#contact" class="n-btn">Hire Me</a>
+    <div class="n-burger" id="burger" role="button" aria-label="Toggle navigation" tabindex="0">
+      <span></span><span></span>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- PROJECT HERO -->
+    <header class="proj-hero" aria-label="Project header">
+      <div class="proj-hero-img" aria-hidden="true">
+        <img src="assets/images/Centauri_Shadow_Cover.jpg" alt="">
+      </div>
+      <div class="proj-hero-veil" aria-hidden="true"></div>
+
+      <div class="proj-hero-inner">
+        <a href="index.html#work" class="proj-back">← Back to work</a>
+        <p class="proj-cat">Book Design · Editorial</p>
+        <h1 class="proj-title">CENTAURI'S<br>SHADOW</h1>
+        <div class="proj-meta">
+          <div class="proj-meta-item">
+            <span class="proj-meta-label">Client</span>
+            <span class="proj-meta-val">Ross Garner</span>
+          </div>
+          <div class="proj-meta-item">
+            <span class="proj-meta-label">Year</span>
+            <span class="proj-meta-val">2024</span>
+          </div>
+          <div class="proj-meta-item">
+            <span class="proj-meta-label">Services</span>
+            <span class="proj-meta-val">Cover Design, Book Layout</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PROJECT BODY -->
+    <div class="proj-body">
+
+      <!-- INTRO TEXT -->
+      <div class="proj-intro rv">
+        <h2>THE BRIEF</h2>
+        <div>
+          <p>Ross Garner approached me to design the cover for his debut sci-fi novel, and I eagerly accepted the opportunity. After receiving the synopsis from Ross, I immersed myself in researching and exploring visual themes, drawing inspiration from both classic and contemporary sci-fi designs.</p>
+          <p>I presented several options, and together we decided on the final approach. From there, I completed the cover design and worked on the rest of the book's layout.</p>
+        </div>
+      </div>
+
+      <!-- IMAGES -->
+      <div class="proj-images rv d1">
+
+        <!-- IMAGE 1: Full width -->
+        <div class="img-block" style="margin-bottom:3px;">
+          <img src="https://robrichardson.co.uk/wp-content/uploads/2024/07/Centauri_Shadow_Cover.jpg" alt="Centauri's Shadow Book Cover">
+        </div>
+
+        <!-- IMAGES 2 & 3: Side by side -->
+        <div class="img-row" style="margin-bottom:3px;">
+          <div class="img-block">
+            <img src="https://robrichardson.co.uk/wp-content/uploads/2024/07/Centauri_Shadow_Full.jpg" alt="Centauri's Shadow Full Book">
+          </div>
+          <div class="img-block">
+            <img src="https://robrichardson.co.uk/wp-content/uploads/2024/07/Centauri_Shadow_Cover_Angle.jpg" alt="Centauri's Shadow Cover Angle">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NEXT PROJECT LINK -->
+    <a href="project-anders-pink.html" class="next-proj" aria-label="Next project">
+      <div>
+        <p class="next-label">Next project</p>
+        <p class="next-title">ANDERS PINK</p>
+      </div>
+      <div class="next-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </a>
+
+  </main>
+
+  <footer>
+    <img src="assets/logo/richardson.png" alt="Richardson">
+    <div class="f-socials" role="navigation" aria-label="Social media links">
+      <a href="https://www.instagram.com/bobricardobob/" class="c-soc" aria-label="Instagram">Instagram</a>
+      <a href="https://www.linkedin.com/in/rob-richardson-6b659b65/" class="c-soc" aria-label="LinkedIn">LinkedIn</a>
+      <a href="https://www.behance.net/robrichardson" class="c-soc" aria-label="Behance">Behance</a>
+      <a href="https://bsky.app/profile/robxrich.bsky.social" class="c-soc" aria-label="Bluesky">Bluesky</a>
+    </div>
+    <div class="f-contact-info">
+      <a href="tel:07967625928" class="f-detail">Tel: 07967 625 928</a>
+      <span class="f-detail">125 Deansgate, Manchester, M3 2BY, United Kingdom</span>
+    </div>
+    <p class="f-copy">© 2026 Rob Richardson. All rights reserved.</p>
+    <span class="f-top" role="button" tabindex="0" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</span>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('stuck', scrollY > 70), { passive: true });
+    const burger = document.getElementById('burger');
+    const nLinks = document.getElementById('nLinks');
+    burger.addEventListener('click', () => nLinks.classList.toggle('open'));
+    burger.addEventListener('keydown', e => e.key === 'Enter' && nLinks.classList.toggle('open'));
+    nLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nLinks.classList.remove('open')));
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
