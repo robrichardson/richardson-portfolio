@@ -71,16 +71,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://richardson.design/project-boohoo</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://richardson.design/project-bmi</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://richardson.design/project-ready-player-one</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
