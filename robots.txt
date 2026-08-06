@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /project.html
+
+Sitemap: https://richardson.design/sitemap.xml

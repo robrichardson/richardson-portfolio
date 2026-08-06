@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SJ1TLJTLVP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SJ1TLJTLVP');
+</script>
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cmprssr — Batch Image Compression for Mac</title>
+  <meta name="description" content="cmprssr is a fast, native Mac app for batch image compression. Drop your images, pick a quality, compress. JPEG, PNG, WebP, GIF, SVG supported.">
+
+  <!-- Fonts — same as main site -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================
+       RESET & TOKENS — matches main site (Raw Signal)
+    ========================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:#0a0a0a;
+      --fg:#f4f4f0;
+      --acid:#dfe104;
+      --line:#3f3f3f;
+      --ff-disp:'Space Grotesk',sans-serif;
+      --ff-mono:'JetBrains Mono',monospace;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--ff-mono);
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; text-decoration: none; }
+    ::selection{background:var(--acid);color:#000;}
+
+    /* =========================================
+       NAV
+    ========================================= */
+    nav {
+      position: sticky; top: 0; z-index: 500;
+      background: var(--bg);
+      border-bottom: 2px solid var(--line);
+      padding: 20px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .n-logo {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .n-logo svg { width: 32px; height: 32px; flex-shrink: 0; }
+    .n-logo-name {
+      font: 700 22px/1 var(--ff-disp);
+      letter-spacing: -.01em; text-transform: uppercase;
+      color: var(--fg);
+    }
+    .n-links { list-style: none; display: flex; gap: 34px; }
+    .n-links a {
+      font: 500 13px/1 var(--ff-mono);
+      letter-spacing: .1em; text-transform: uppercase;
+      color: #a0a0a0;
+    }
+    .n-links a:hover { color: var(--acid); }
+    .n-btn {
+      font: 700 13px/1 var(--ff-mono);
+      letter-spacing: .1em; text-transform: uppercase;
+      background: var(--acid); color: #000;
+      border: 2px solid var(--acid);
+      padding: 10px 20px;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .n-btn:hover { background: var(--bg); color: var(--acid); }
+
+    /* =========================================
+       HERO
+    ========================================= */
+    #hero {
+      min-height: 90svh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center;
+      padding: 100px 40px 80px;
+      position: relative; overflow: hidden;
+      border-bottom: 2px solid var(--line);
+    }
+
+    .h-badge {
+      display: inline-flex; align-items: center; gap: 9px;
+      font: 700 12px/1 var(--ff-mono);
+      letter-spacing: .12em; text-transform: uppercase;
+      color: #a0a0a0;
+      border: 2px solid var(--line);
+      padding: 8px 16px;
+      margin-bottom: 40px;
+      position: relative; z-index: 1;
+    }
+    .h-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--acid); flex-shrink: 0;
+    }
+
+    .h-icon {
+      width: 100%;
+      max-width: 46%;
+      margin: 0 auto 32px;
+      position: relative; z-index: 1;
+      display: flex; justify-content: center;
+    }
+
+    .h-wordmark {
+      font: 700 clamp(52px,11vw,150px)/.86 var(--ff-disp);
+      letter-spacing: -.01em; text-transform: uppercase;
+      color: var(--fg);
+      position: relative; z-index: 1;
+      margin-bottom: 24px;
+    }
+
+    .h-tagline {
+      font: 400 15px/1.7 var(--ff-mono);
+      color: #c2c2c2;
+      max-width: 500px;
+      position: relative; z-index: 1;
+      margin-bottom: 44px;
+    }
+
+    .h-cta-group {
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+      justify-content: center;
+      position: relative; z-index: 1;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      font: 700 13px/1 var(--ff-mono);
+      letter-spacing: .1em; text-transform: uppercase;
+      background: var(--acid); color: #000;
+      border: 2px solid var(--acid);
+      padding: 16px 32px;
+    }
+    .btn-primary:hover { background: var(--bg); color: var(--acid); }
+    .btn-primary svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .h-system-req {
+      font: 400 12px/1 var(--ff-mono);
+      letter-spacing: .08em;
+      color: #a0a0a0;
+    }
+
+    /* =========================================
+       STATS STRIP
+    ========================================= */
+    .stats-strip {
+      border-bottom: 2px solid var(--line);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: var(--line);
+      gap: 2px;
+    }
+    .stat-cell {
+      padding: 40px 32px;
+      background: var(--bg);
+    }
+    .stat-n {
+      font: 700 clamp(36px,4.6vw,58px)/1 var(--ff-disp);
+      color: var(--acid); margin-bottom: 8px;
+    }
+    .stat-l {
+      font: 500 12px/1 var(--ff-mono);
+      letter-spacing: .1em; text-transform: uppercase;
+      color: #a0a0a0;
+    }
+
+    /* =========================================
+       MARQUEE
+    ========================================= */
+    .marquee-wrap {
+      overflow: hidden;
+      border-bottom: 2px solid var(--line);
+      background: var(--bg); padding: 15px 0;
+    }
+    .marquee-track {
+      display: flex; white-space: nowrap;
+      animation: mq 24s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    .m-item {
+      flex-shrink: 0;
+      font: 700 12px/1 var(--ff-disp);
+      letter-spacing: .22em; text-transform: uppercase;
+      color: #a0a0a0;
+      padding: 0 26px; display: inline-flex; align-items: center; gap: 26px;
+    }
+    .m-sep { color: var(--acid); font-size: 14px; }
+    @keyframes mq { to { transform: translateX(-50%); } }
+
+    /* =========================================
+       APP PREVIEW SECTION
+    ========================================= */
+    #preview {
+      padding: 88px 40px;
+      border-bottom: 2px solid var(--line);
+      position: relative;
+    }
+
+    .s-label {
+      font: 500 13px/1 var(--ff-mono);
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--acid); margin-bottom: 18px;
+    }
+    .s-title {
+      font: 700 clamp(36px,5.5vw,72px)/.95 var(--ff-disp);
+      letter-spacing: -.01em; text-transform: uppercase;
+    }
+    .s-head {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+
+    /* Mac window mockup */
+    .app-window {
+      max-width: 560px;
+      margin: 0 auto;
+      overflow: hidden;
+      background: #e8e8e8;
+      border: 2px solid var(--line);
+    }
+
+    .app-titlebar {
+      background: #d4d4d4;
+      padding: 13px 16px;
+      display: flex; align-items: center; gap: 0;
+      border-bottom: 1px solid rgba(0,0,0,.12);
+      position: relative;
+    }
+    .app-dots { display: flex; gap: 8px; align-items: center; }
+    .app-dot { width: 13px; height: 13px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; box-shadow: 0 0 0 0.5px rgba(0,0,0,.2); }
+    .dot-a { background: #febc2e; box-shadow: 0 0 0 0.5px rgba(0,0,0,.18); }
+    .dot-g { background: #28c840; box-shadow: 0 0 0 0.5px rgba(0,0,0,.18); }
+    .app-title-text {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      font: 500 13px/1 -apple-system, 'SF Pro Display', var(--ff-mono);
+      color: #3d3d3d;
+    }
+
+    .app-toolbar {
+      background: #e0e0e0;
+      padding: 10px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid rgba(0,0,0,.1);
+      font: 400 13px/1 -apple-system, var(--ff-mono);
+      color: #555;
+    }
+    .app-toolbar-right { display: flex; align-items: center; gap: 12px; }
+    .app-add-btn { color: #0066cc; font-weight: 500; font-size: 13px; }
+    .app-gear { width: 16px; height: 16px; color: #888; }
+
+    .app-list { background: #ebebeb; display: flex; flex-direction: column; }
+    .app-row {
+      display: grid;
+      grid-template-columns: 44px auto 1fr 64px 60px 28px;
+      align-items: center; gap: 0 10px;
+      padding: 8px 14px;
+      border-bottom: 1px solid rgba(0,0,0,.07);
+      background: #f2f2f2;
+    }
+    .app-row:nth-child(even) { background: #ebebeb; }
+    .app-thumb { width: 36px; height: 36px; border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+    .thumb-1 { background: linear-gradient(135deg, #1a1a2e 0%, #dfe104 60%, #16213e 100%); }
+    .thumb-2 { background: linear-gradient(135deg, #0f3460 0%, #dfe104 60%, #533483 100%); }
+    .thumb-3 { background: linear-gradient(135deg, #141e30 0%, #243b55 100%); }
+    .thumb-4 { background: linear-gradient(135deg, #373b44 0%, #4286f4 100%); }
+    .thumb-5 { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); }
+    .thumb-6 { background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%); }
+    .thumb-7 { background: linear-gradient(135deg, #dfe104 0%, #1565c0 100%); }
+    .app-badge {
+      background: rgba(0,0,0,.18); color: #555;
+      font: 700 9px/1 var(--ff-mono); letter-spacing: .04em;
+      padding: 3px 5px; border-radius: 3px; text-align: center; justify-self: center;
+    }
+    .app-filename {
+      font: 400 12.5px/1.3 -apple-system, var(--ff-mono);
+      color: #2d2d2d; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .app-saving { font: 700 13px/1 var(--ff-mono); color: #1c7c3e; text-align: right; }
+    .app-status { font: 400 12px/1 -apple-system, var(--ff-mono); color: #1c7c3e; display: flex; align-items: center; gap: 4px; justify-self: center; }
+    .app-status::before { content: '✓'; font-weight: 600; }
+    .app-close { color: #bbb; font-size: 14px; text-align: right; }
+
+    .app-footer {
+      background: #d8d8d8;
+      border-top: 1px solid rgba(0,0,0,.12);
+      padding: 11px 16px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .app-saved { font: 700 13px/1 -apple-system, var(--ff-mono); color: #1c7c3e; flex: 1; }
+    .app-quality { display: flex; align-items: center; gap: 8px; font: 400 12px/1 -apple-system, var(--ff-mono); color: #555; }
+    .app-quality-label { letter-spacing: .03em; }
+    .app-slider {
+      width: 72px; height: 4px;
+      background: linear-gradient(to right, #aaa 65%, #ccc 65%);
+      border-radius: 2px; position: relative;
+    }
+    .app-slider::after {
+      content: ''; position: absolute; left: 65%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 13px; height: 13px; background: white; border-radius: 50%;
+      box-shadow: 0 1px 4px rgba(0,0,0,.3);
+    }
+    .app-quality-val { font-weight: 700; color: #333; }
+    .app-compress-btn {
+      background: #0077ed; color: white;
+      font: 700 13px/1 -apple-system, var(--ff-mono);
+      padding: 8px 20px; border-radius: 7px;
+      display: flex; align-items: center; gap: 8px; white-space: nowrap;
+    }
+    .app-compress-kbd { font: 400 11px/1 -apple-system, var(--ff-mono); opacity: .7; }
+
+    .preview-caption {
+      text-align: center;
+      margin-top: 32px;
+      font: 500 13px/1 var(--ff-mono);
+      letter-spacing: .08em;
+      color: #a0a0a0;
+    }
+
+    /* =========================================
+       FEATURES
+    ========================================= */
+    #features {
+      padding: 88px 40px;
+      border-bottom: 2px solid var(--line);
+    }
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--line);
+    }
+    .feat {
+      background: var(--bg);
+      padding: 44px 36px;
+      position: relative; overflow: hidden;
+      transition: background 80ms linear, color 80ms linear;
+    }
+    .feat:hover { background: var(--acid); color: #000; }
+    .feat-icon { width: 36px; height: 36px; margin-bottom: 26px; color: var(--acid); }
+    .feat:hover .feat-icon { color: #000; }
+    .feat-n {
+      font: 700 13px/1 var(--ff-mono);
+      letter-spacing: .1em; color: var(--acid); margin-bottom: 18px;
+    }
+    .feat:hover .feat-n { color: #000; }
+    .feat-t {
+      font: 700 24px/1.1 var(--ff-disp);
+      letter-spacing: -.01em; text-transform: uppercase; margin-bottom: 14px;
+    }
+    .feat-d { font: 400 14px/1.7 var(--ff-mono); color: #a0a0a0; }
+    .feat:hover .feat-d { color: #1a1a00; }
+
+    /* =========================================
+       DOWNLOAD CTA SECTION
+    ========================================= */
+    #download {
+      padding: 100px 40px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .dl-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+    .dl-inner .s-label { text-align: center; margin-bottom: 20px; }
+    .dl-head {
+      font: 700 clamp(44px,7.5vw,96px)/.9 var(--ff-disp);
+      letter-spacing: -.01em; text-transform: uppercase; margin-bottom: 24px;
+    }
+    .dl-head em { font-style: normal; color: var(--acid); }
+    .dl-sub {
+      font: 400 15px/1.75 var(--ff-mono);
+      color: #c2c2c2;
+      margin-bottom: 44px;
+    }
+    .dl-meta {
+      margin-top: 20px;
+      font: 400 12px/1.6 var(--ff-mono);
+      letter-spacing: .07em;
+      color: #a0a0a0;
+    }
+
+    /* =========================================
+       FOOTER
+    ========================================= */
+    footer {
+      padding: 32px 40px;
+      border-top: 2px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .f-logo { display: flex; align-items: center; gap: 10px; }
+    .f-logo svg { width: 22px; height: 22px; opacity: .5; }
+    .f-logo-name {
+      font: 700 17px/1 var(--ff-disp);
+      letter-spacing: -.01em; text-transform: uppercase;
+      color: #a0a0a0;
+    }
+    .f-copy { font: 400 12px/1 var(--ff-mono); letter-spacing: .05em; color: #a0a0a0; }
+    .f-back {
+      font: 500 12px/1 var(--ff-mono);
+      letter-spacing: .1em; text-transform: uppercase;
+      color: #a0a0a0;
+    }
+    .f-back:hover { color: var(--acid); }
+
+    /* =========================================
+       RESPONSIVE
+    ========================================= */
+    @media (max-width: 1100px) {
+      nav, #hero, #preview, #features, #download, footer { padding-left: 24px; padding-right: 24px; }
+      .stats-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 800px) {
+      nav { padding: 16px 24px; }
+      .n-links { display: none; }
+
+      #hero, #preview, #features, #download { padding-left: 24px; padding-right: 24px; }
+      footer { padding: 24px; }
+
+      .feat-grid { grid-template-columns: 1fr; }
+      .s-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+
+      .app-window { max-width: 100%; }
+    }
+
+    @media (max-width: 540px) {
+      .stats-strip { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav id="nav" aria-label="Primary navigation">
+    <a href="https://robrichardson.co.uk" class="n-logo" aria-label="Richardson home">
+      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="150" cy="150" r="150" fill="currentColor"/>
+        <polygon points="214.6 159.2 220.7 85.8 79.3 85.8 85.4 159.2 63.1 159.2 150 238.8 236.9 159.2 214.6 159.2" fill="#0a0a0a"/>
+      </svg>
+      <span class="n-logo-name">cmprssr</span>
+    </a>
+
+    <ul class="n-links">
+      <li><a href="#preview">Preview</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#download">Download</a></li>
+    </ul>
+
+    <a href="https://robrichardson.co.uk/downloads/cmprssr_0.1.0_universal.dmg" class="n-btn">
+      <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M8 1v9M4 7l4 4 4-4M1 13h14"/>
+      </svg>
+      Download
+    </a>
+  </nav>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section id="hero" aria-label="cmprssr — batch image compression for Mac">
+
+      <div class="h-badge">
+        <span class="h-badge-dot" aria-hidden="true"></span>
+        Now available — free download
+      </div>
+
+      <div class="h-icon" aria-hidden="true">
+        <img src="logo/cmprssr_branding_white.png" alt="cmprssr" style="width:50%;height:auto;">
+      </div>
+
+      <p class="h-tagline">
+        Drop images. Pick a quality. Get smaller files — instantly.<br>
+        Batch image compression for Mac, with no fluff.
+      </p>
+
+      <div class="h-cta-group">
+        <a href="https://robrichardson.co.uk/downloads/cmprssr_0.1.0_universal.dmg" class="btn-primary" aria-label="Download cmprssr for Mac">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 1v9M4 7l4 4 4-4M1 13h14"/>
+          </svg>
+          Download for Mac
+        </a>
+      </div>
+      <p class="h-system-req" style="margin-top:16px;">Free · macOS 12+ · Native app</p>
+
+    </section>
+
+    <!-- ===== STATS STRIP ===== -->
+    <div class="stats-strip" role="region" aria-label="cmprssr statistics">
+      <div class="stat-cell"><p class="stat-n">−39%</p><p class="stat-l">Average file saving</p></div>
+      <div class="stat-cell"><p class="stat-n">5</p><p class="stat-l">Formats supported</p></div>
+      <div class="stat-cell"><p class="stat-n">∞</p><p class="stat-l">Images per batch</p></div>
+      <div class="stat-cell"><p class="stat-n">0</p><p class="stat-l">Cloud uploads. Ever.</p></div>
+    </div>
+
+    <!-- ===== MARQUEE ===== -->
+    <div class="marquee-wrap" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="m-item">JPEG <span class="m-sep">·</span> PNG <span class="m-sep">·</span> WEBP <span class="m-sep">·</span> GIF <span class="m-sep">·</span> SVG <span class="m-sep">·</span> DRAG &amp; DROP <span class="m-sep">·</span> BATCH COMPRESS <span class="m-sep">·</span> QUALITY CONTROL <span class="m-sep">·</span> NATIVE MAC APP <span class="m-sep">·</span> 100% LOCAL <span class="m-sep">·</span> NO SUBSCRIPTION <span class="m-sep">·</span></div>
+        <div class="m-item">JPEG <span class="m-sep">·</span> PNG <span class="m-sep">·</span> WEBP <span class="m-sep">·</span> GIF <span class="m-sep">·</span> SVG <span class="m-sep">·</span> DRAG &amp; DROP <span class="m-sep">·</span> BATCH COMPRESS <span class="m-sep">·</span> QUALITY CONTROL <span class="m-sep">·</span> NATIVE MAC APP <span class="m-sep">·</span> 100% LOCAL <span class="m-sep">·</span> NO SUBSCRIPTION <span class="m-sep">·</span></div>
+      </div>
+    </div>
+
+    <!-- ===== APP PREVIEW ===== -->
+    <section id="preview" aria-label="App preview">
+      <div class="s-head">
+        <div>
+          <p class="s-label">See it in action</p>
+          <h2 class="s-title">CLEAN.<br>FAST.<br>SIMPLE.</h2>
+        </div>
+        <p style="max-width:320px;font:400 13px/1.6 var(--ff-mono);color:#a0a0a0;text-align:right;">
+          No settings menus. No export dialogs. One quality slider — that's it.
+        </p>
+      </div>
+
+      <!-- macOS window mockup -->
+      <div class="app-window" role="img" aria-label="cmprssr app showing 7 compressed images with savings between 28–39%">
+
+        <div class="app-titlebar">
+          <div class="app-dots" aria-hidden="true">
+            <div class="app-dot dot-r"></div>
+            <div class="app-dot dot-a"></div>
+            <div class="app-dot dot-g"></div>
+          </div>
+          <span class="app-title-text">cmprssr</span>
+        </div>
+
+        <div class="app-toolbar">
+          <span>7 images</span>
+          <div class="app-toolbar-right">
+            <span class="app-add-btn">+ Add more</span>
+            <svg class="app-gear" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M10 13a3 3 0 100-6 3 3 0 000 6z"/>
+              <path d="M10 2a1 1 0 011 1v.5a1 1 0 001.45.91l.43-.25a1 1 0 011.37.37l1 1.73a1 1 0 01-.37 1.37l-.43.25a1 1 0 000 1.82l.43.25a1 1 0 01.37 1.37l-1 1.73a1 1 0 01-1.37.37l-.43-.25A1 1 0 0011 17.5V18a1 1 0 01-1 1 1 1 0 01-1-1v-.5a1 1 0 00-1.45-.91l-.43.25a1 1 0 01-1.37-.37l-1-1.73a1 1 0 01.37-1.37l.43-.25a1 1 0 000-1.82l-.43-.25a1 1 0 01-.37-1.37l1-1.73a1 1 0 011.37-.37l.43.25A1 1 0 009 3.5V3a1 1 0 011-1z"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="app-list" aria-label="Compressed images list">
+          <div class="app-row">
+            <div class="app-thumb thumb-1" aria-hidden="true"></div>
+            <span class="app-badge">JPG</span>
+            <span class="app-filename">Desktop_v1_NewLines_Final.jpg</span>
+            <span class="app-saving">−30%</span>
+            <span class="app-status">Done</span>
+            <span class="app-close" aria-hidden="true">×</span>
+          </div>
+          <div class="app-row">
+            <div class="app-thumb thumb-2" aria-hidden="true"></div>
+            <span class="app-badge">JPG</span>
+            <span class="app-filename">Desktop_v2_Midnight_Dark.jpg</span>
+            <span class="app-saving">−28%</span>
+            <span class="app-status">Done</span>
+            <span class="app-close" aria-hidden="true">×</span>
+          </div>
+          <div class="app-row">
+            <div class="app-thumb thumb-3" aria-hidden="true"></div>
+            <span class="app-badge">JPG</span>
+            <span class="app-filename">Desktop_v2_NewLines_Alt.jpg</span>
+            <span class="app-saving">−28%</span>
+            <span class="app-status">Done</span>
+            <span class="app-close" aria-hidden="true">×</span>
+          </div>
+          <div class="app-row">
+            <div class="app-thumb thumb-4" aria-hidden="true"></div>
+            <span class="app-badge">JPG</span>
+            <span class="app-filename">Desktop_v3_Midnight_v2.jpg</span>
+            <span class="app-saving">−28%</span>
+            <span class="app-status">Done</span>
+            <span class="app-close" aria-hidden="true">×</span>
+          </div>
+          <div class="app-row">
+            <div class="app-thumb thumb-5" aria-hidden="true"></div>
+            <span class="app-badge">JPG</span>
+            <span class="app-filename">Desktop_v3_NewLines_Crop.jpg</span>
+            <span class="app-saving">−28%</span>
+            <span class="app-status">Done</span>
+            <span class="app-close" aria-hidden="true">×</span>
+          </div>
+          <div class="app-row">
+            <div class="app-thumb thumb-6" aria-hidden="true"></div>
+            <span class="app-badge">JPG</span>
+            <span class="app-filename">Mobile_v1_Midnight.jpg</span>
+            <span class="app-saving">−39%</span>
+            <span class="app-status">Done</span>
+            <span class="app-close" aria-hidden="true">×</span>
+          </div>
+          <div class="app-row" style="border-bottom:none;">
+            <div class="app-thumb thumb-7" aria-hidden="true"></div>
+            <span class="app-badge">JPG</span>
+            <span class="app-filename">Mobile_v1_NewLines_50off.jpg</span>
+            <span class="app-saving">−39%</span>
+            <span class="app-status">Done</span>
+            <span class="app-close" aria-hidden="true">×</span>
+          </div>
+        </div>
+
+        <div class="app-footer">
+          <span class="app-saved">saved 1.88 MB</span>
+          <div class="app-quality">
+            <span class="app-quality-label">Q</span>
+            <div class="app-slider" aria-hidden="true"></div>
+            <span class="app-quality-val">80</span>
+          </div>
+          <div class="app-compress-btn" aria-hidden="true">
+            Compress
+            <span class="app-compress-kbd">⌘↵</span>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="preview-caption">7 images · 1.88 MB saved · quality 80</p>
+
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section id="features" aria-label="cmprssr features">
+
+      <div class="feat-grid">
+
+        <div class="feat">
+          <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <rect x="4" y="8" width="32" height="24" rx="3"/>
+            <path d="M13 16l7 7 7-7M20 23V10"/>
+          </svg>
+          <p class="feat-n">01</p>
+          <h3 class="feat-t">DRAG, DROP, DONE</h3>
+          <p class="feat-d">Drop a single image or an entire folder and cmprssr queues everything automatically. Compress one file or a thousand — same workflow, same speed.</p>
+        </div>
+
+        <div class="feat">
+          <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="20" cy="20" r="14"/>
+            <path d="M20 13v7l5 3"/>
+          </svg>
+          <p class="feat-n">02</p>
+          <h3 class="feat-t">ONE QUALITY SLIDER</h3>
+          <p class="feat-d">No presets, no profiles, no export menus. A single quality slider from 1–100 gives you full control. Set it once, compress everything, move on.</p>
+        </div>
+
+        <div class="feat">
+          <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M20 6L6 16v18h28V16L20 6z"/>
+            <path d="M14 34V24h12v10"/>
+          </svg>
+          <p class="feat-n">03</p>
+          <h3 class="feat-t">100% ON-DEVICE</h3>
+          <p class="feat-d">Your images never leave your Mac. No cloud upload, no account, no subscription. cmprssr is a native Mac app — fast, private and available offline.</p>
+        </div>
+
+        <div class="feat">
+          <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M8 20h24M24 14l6 6-6 6"/>
+            <rect x="4" y="8" width="14" height="24" rx="2"/>
+          </svg>
+          <p class="feat-n">04</p>
+          <h3 class="feat-t">FIVE FORMATS</h3>
+          <p class="feat-d">JPEG, PNG, WebP, GIF and SVG all supported in the same batch. Mixed format folders are handled without a second thought.</p>
+        </div>
+
+        <div class="feat">
+          <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <polyline points="8 26 16 18 22 24 32 14"/>
+            <path d="M6 34h28"/>
+          </svg>
+          <p class="feat-n">05</p>
+          <h3 class="feat-t">INSTANT SAVINGS READOUT</h3>
+          <p class="feat-d">See the percentage saving per file and total MB saved at a glance — no digging through file info or comparing sizes manually.</p>
+        </div>
+
+        <div class="feat">
+          <svg class="feat-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M20 6a14 14 0 100 28A14 14 0 0020 6z"/>
+            <path d="M20 6v14l8 4"/>
+          </svg>
+          <p class="feat-n">06</p>
+          <h3 class="feat-t">KEYBOARD FIRST</h3>
+          <p class="feat-d">⌘↵ to compress. ⌘O to open more files. Everything you need at your fingertips — designed for the workflow you're already in.</p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===== DOWNLOAD CTA ===== -->
+    <section id="download" aria-label="Download cmprssr">
+      <div class="dl-inner">
+        <p class="s-label">Free download</p>
+        <h2 class="dl-head">
+          SMALLER FILES.<br>FASTER <em>SITES.</em>
+        </h2>
+        <p class="dl-sub">
+          Designed and built in Manchester. No tracking, no ads, no nonsense — just a tool that does exactly what it says.
+        </p>
+        <div>
+          <a href="https://robrichardson.co.uk/downloads/cmprssr_0.1.0_universal.dmg" class="btn-primary" style="display:inline-flex;margin:0 auto;" aria-label="Download cmprssr for Mac — free">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <path d="M8 1v9M4 7l4 4 4-4M1 13h14"/>
+            </svg>
+            Download for Mac — Free
+          </a>
+        </div>
+        <p class="dl-meta">
+          macOS 12 Monterey or later · Apple Silicon &amp; Intel · v1.0
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="f-logo">
+      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="150" cy="150" r="150" fill="currentColor"/>
+        <polygon points="214.6 159.2 220.7 85.8 79.3 85.8 85.4 159.2 63.1 159.2 150 238.8 236.9 159.2 214.6 159.2" fill="#0a0a0a"/>
+      </svg>
+      <span class="f-logo-name">cmprssr</span>
+    </div>
+    <p class="f-copy">A side project by <a href="https://robrichardson.co.uk/" style="color:var(--acid);">Rob Richardson</a> · Manchester, UK</p>
+    <a href="https://robrichardson.co.uk/" class="f-back">← Richardson</a>
+  </footer>
+
+  <script>
+    // no scroll-reveal / stuck-nav JS needed — nav is sticky via CSS, no animation on this page
+  </script>
+
+</body>
+</html>

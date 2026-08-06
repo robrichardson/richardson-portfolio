@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SJ1TLJTLVP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SJ1TLJTLVP');
+</script>
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Collaboration Game — Team Game Design | Rob Richardson</title>
+  <meta name="description" content="The Collaboration Game — a facilitated team game designed to run on Miro. Game board, cards, characters and brand identity by Rob Richardson, Manchester.">
+  <meta name="keywords" content="game design, board game design, brand identity, illustration, Miro, facilitation, graphic design Manchester">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://richardson.design/project-collab-game">
+  <meta property="og:title" content="The Collaboration Game — Team Game Design">
+  <meta property="og:description" content="A facilitated team game designed to run on Miro — game board, cards, characters and identity by Rob Richardson.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://richardson.design/project-collab-game">
+  <meta property="og:image" content="https://richardson.design/assets/images/collab-game-hero.jpg">
+  <meta property="og:locale" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Collaboration Game — Team Game Design">
+  <meta name="twitter:description" content="A facilitated team game designed to run on Miro — board, cards, characters and identity.">
+  <meta name="twitter:image" content="https://richardson.design/assets/images/collab-game-hero.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "The Collaboration Game",
+    "creator": { "@type": "Person", "name": "Rob Richardson", "url": "https://richardson.design/about" },
+    "about": "Facilitated team game design, brand identity and illustration.",
+    "url": "https://richardson.design/project-collab-game",
+    "keywords": "game design, board game design, brand identity, illustration, Miro, facilitation",
+    "image": "https://richardson.design/assets/images/collab-game-hero.jpg"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#0a0a0a;
+      --fg:#f4f4f0;
+      --acid:#dfe104;
+      --line:#3f3f3f;
+      --ff-disp:'Space Grotesk',sans-serif;
+      --ff-mono:'JetBrains Mono',monospace;
+    }
+    body{background:var(--bg);color:var(--fg);font-family:var(--ff-mono);font-size:15px;line-height:1.6;overflow-x:hidden;}
+    img{display:block;max-width:100%;}
+    a{color:inherit;text-decoration:none;}
+    ::selection{background:var(--acid);color:#000;}
+
+    nav{position:sticky;top:0;z-index:500;background:var(--bg);border-bottom:2px solid var(--line);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;}
+    .n-logo img{height:42px;filter:invert(1);}
+    .n-links{list-style:none;display:flex;gap:34px;}
+    .n-links a{font:500 13px/1 var(--ff-mono);letter-spacing:.1em;text-transform:uppercase;color:#a0a0a0;}
+    .n-links a:hover{color:var(--acid);}
+    .n-btn{font:700 13px/1 var(--ff-mono);letter-spacing:.1em;text-transform:uppercase;background:var(--acid);color:#000;border:2px solid var(--acid);padding:10px 20px;}
+    .n-btn:hover{background:var(--bg);color:var(--acid);}
+    .n-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+    .n-burger span{display:block;width:24px;height:2px;background:var(--fg);}
+
+    .proj-hero{min-height:50vh;display:flex;align-items:flex-end;padding:0 40px 56px;position:relative;overflow:hidden;border-bottom:2px solid var(--line);}
+    .proj-hero-img{position:absolute;inset:0;}
+    .proj-hero-img img{width:100%;height:100%;object-fit:cover;opacity:.35;}
+    .proj-hero-veil{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 65%);}
+    .proj-hero-inner{position:relative;z-index:1;}
+    .proj-back{display:inline-flex;align-items:center;gap:8px;font:700 13px/1 var(--ff-mono);letter-spacing:.1em;text-transform:uppercase;color:#a0a0a0;margin-bottom:28px;}
+    .proj-back:hover{color:var(--acid);}
+    .proj-cat{font:700 13px/1 var(--ff-mono);letter-spacing:.15em;text-transform:uppercase;color:var(--acid);margin-bottom:16px;}
+    .proj-title{font:700 clamp(44px,9vw,130px)/.88 var(--ff-disp);letter-spacing:-.01em;text-transform:uppercase;margin-bottom:28px;}
+    .proj-meta{display:flex;gap:40px;flex-wrap:wrap;}
+    .proj-meta-item{display:flex;flex-direction:column;gap:6px;}
+    .proj-meta-label{font:500 12px/1 var(--ff-mono);letter-spacing:.1em;text-transform:uppercase;color:#a0a0a0;}
+    .proj-meta-val{font:500 14px/1 var(--ff-mono);color:var(--fg);}
+
+    .proj-body{padding:80px 40px;}
+    .proj-intro{display:grid;grid-template-columns:1fr 1.4fr;gap:56px;margin-bottom:72px;align-items:start;}
+    .proj-intro h2{font:700 clamp(26px,3.2vw,42px)/1.1 var(--ff-disp);letter-spacing:-.01em;text-transform:uppercase;color:var(--acid);}
+    .proj-intro h3{font:700 13px/1 var(--ff-mono);letter-spacing:.15em;text-transform:uppercase;color:var(--acid);}
+    .proj-intro p{font:400 15px/1.8 var(--ff-mono);color:#c2c2c2;}
+    .proj-intro p+p{margin-top:16px;}
+    .proj-intro strong{color:var(--fg);}
+
+    .proj-images{display:flex;flex-direction:column;gap:2px;}
+    .img-block{width:100%;overflow:hidden;background:#141414;line-height:0;}
+    .img-block img{width:100%;height:auto;display:block;}
+    .img-row{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+
+    .next-proj{border-top:2px solid var(--line);padding:56px 40px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;transition:background 80ms linear,color 80ms linear;}
+    .next-proj:hover{background:var(--acid);color:#000;}
+    .next-label{font:700 13px/1 var(--ff-mono);letter-spacing:.15em;text-transform:uppercase;color:#a0a0a0;margin-bottom:12px;}
+    .next-proj:hover .next-label{color:#000;}
+    .next-title{font:700 clamp(26px,4.5vw,58px)/1 var(--ff-disp);letter-spacing:-.01em;text-transform:uppercase;color:var(--fg);}
+    .next-proj:hover .next-title{color:#000;}
+    .next-arrow{width:56px;height:56px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .next-proj:hover .next-arrow{border-color:#000;}
+    .next-arrow svg{width:20px;height:20px;stroke:var(--fg);fill:none;stroke-width:1.5;}
+    .next-proj:hover .next-arrow svg{stroke:#000;}
+
+    footer{padding:32px 40px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;border-top:2px solid var(--line);}
+    .f-mid{display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;}
+    .f-socials{display:flex;gap:22px;flex-wrap:wrap;justify-content:flex-start;}
+    .f-detail,.f-copy{font:400 12px/1.5 var(--ff-mono);color:#a0a0a0;}
+    .f-detail:hover{color:var(--acid);}
+    .f-top{font:500 12px/1 var(--ff-mono);letter-spacing:.1em;text-transform:uppercase;color:#a0a0a0;cursor:pointer;}
+    .f-top:hover{color:var(--acid);}
+
+    @media(max-width:1000px){
+      nav,.proj-hero,.proj-body,.next-proj,footer{padding-left:24px;padding-right:24px;}
+      .proj-intro{grid-template-columns:1fr;gap:32px;}
+    }
+    @media(max-width:640px){
+      .n-links{display:none;}
+      .n-links.open{display:flex;flex-direction:column;position:fixed;inset:0;background:var(--bg);justify-content:center;align-items:center;gap:28px;z-index:600;}
+      .n-btn{display:none;}
+      .n-burger{display:flex;}
+      .img-row{grid-template-columns:1fr;}
+      footer{flex-direction:column;align-items:flex-start;}
+    }
+  </style>
+</head>
+<body>
+
+<nav id="nav" aria-label="Primary navigation">
+  <div class="n-logo"><a href="index.html"><img src="assets/logo/richardson.png" alt="Richardson — home"></a></div>
+  <ul class="n-links" id="nLinks">
+    <li><a href="index.html#work">Work</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html#contact" class="n-btn">Contact</a>
+  <div class="n-burger" id="burger" role="button" aria-label="Toggle navigation" tabindex="0"><span></span><span></span></div>
+</nav>
+
+<main>
+
+  <header class="proj-hero" aria-label="Project header">
+    <div class="proj-hero-img" aria-hidden="true">
+      <img src="assets/images/collab-game-hero.jpg" alt="">
+    </div>
+    <div class="proj-hero-veil" aria-hidden="true"></div>
+    <div class="proj-hero-inner">
+      <a href="index.html#work" class="proj-back">← Back to work</a>
+      <p class="proj-cat">Game Design · Branding</p>
+      <h1 class="proj-title">The Collaboration Game</h1>
+      <div class="proj-meta">
+        <div class="proj-meta-item"><span class="proj-meta-label">Client</span><span class="proj-meta-val">MindTools, with Edinburgh University &amp; Data for Children</span></div>
+        <div class="proj-meta-item"><span class="proj-meta-label">Year</span><span class="proj-meta-val">2026</span></div>
+        <div class="proj-meta-item"><span class="proj-meta-label">Services</span><span class="proj-meta-val">Game Design, Illustration, Brand Identity</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="proj-body">
+    <div class="proj-intro">
+      <h2>A team game that runs on a whiteboard</h2>
+      <div>
+        <h3 style="margin-bottom:14px;">The brief</h3>
+        <p>The Collaboration Game is a facilitated team game I designed for MindTools — working with Edinburgh University and Data for Children — built to run entirely on a Miro board. Players take on roles from a real project team, from an NGO challenge owner to a private sector partner, and work through eight scenario cards together. Every decision shifts the project's budget, quality and time trackers, and the team's relationship score sits underneath it all: let the mood turn sour and it's game over. It's a playful way to get colleagues arguing productively about priorities and seeing a project through each other's eyes.</p>
+        <p>My job was to make a remote whiteboard feel like a proper board game. I designed the full visual system: the game board with its winding track and project health abacus, three suits of scenario and side quest cards, a set of illustrated player characters, individual player spaces, and the identity itself, with its speech-bubble logo and bold primary palette. The bright, friendly style does real work here, since it lowers the stakes of some fairly pointed conversations about compromise and keeps a two-hour workshop feeling like play.</p>
+      </div>
+    </div>
+
+    <div class="proj-images">
+      <div class="img-block"><img src="assets/images/collab-game-board.jpg" alt="The Collaboration Game board — a winding track from Start to End with review checkpoints, project and scenario card slots, and a central Project Health panel tracking budget, quality, time and team relationship"></div>
+      <div class="img-row">
+        <div class="img-block"><img src="assets/images/collab-game-cards.jpg" alt="The Collaboration Game cards — the project, scenario and side quest card backs beside a scenario card, 'Participants threaten to withdraw', offering three options and their impact on budget, quality and time"></div>
+        <div class="img-block"><img src="assets/images/collab-game-players.jpg" alt="Twelve illustrated player character avatars for The Collaboration Game — a diverse set of faces in bright circular badges"></div>
+      </div>
+      <div class="img-row">
+        <div class="img-block"><img src="assets/images/collab-game-role-private-sector-partner.jpg" alt="Player role card — The Private Sector Partner, a CEO/Director, with what matters most to them, what concerns them, a bonus play and potential sources of friction"></div>
+        <div class="img-block"><img src="assets/images/collab-game-role-academic-partner.jpg" alt="Player role card — The Academic Partner, a senior researcher and principal investigator, with what matters most to them, what concerns them, a bonus play and potential sources of friction"></div>
+      </div>
+      <div class="img-block"><img src="assets/images/collab-game-instructions.jpg" alt="The Collaboration Game rules poster — how to play, covering getting started, during the game, the team relationship score, side quests, reflection after the game, and how to win"></div>
+    </div>
+  </div>
+
+  <a href="project-jam-pan.html" class="next-proj" aria-label="Next project">
+    <div><p class="next-label">Next project</p><p class="next-title">Jam Pan</p></div>
+    <div class="next-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+  </a>
+
+</main>
+
+<footer>
+  <div class="f-mid">
+    <div class="f-socials">
+      <a href="https://www.instagram.com/bobricardobob/" class="f-detail">Instagram</a>
+      <a href="https://www.linkedin.com/in/rob-richardson-6b659b65/" class="f-detail">LinkedIn</a>
+      <a href="https://www.behance.net/robrichardson" class="f-detail">Behance</a>
+      <a href="https://bsky.app/profile/robxrich.bsky.social" class="f-detail">Bluesky</a>
+    </div>
+    <a href="tel:07967625928" class="f-detail">Tel: 07967 625 928</a>
+    <span class="f-detail">125 Deansgate, Manchester, M3 2BY, United Kingdom</span>
+    <p class="f-copy">© 2026 Rob Richardson. All rights reserved.</p>
+  </div>
+  <span class="f-top" role="button" tabindex="0" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Top</span>
+</footer>
+
+<script>
+  const burger = document.getElementById('burger');
+  const nLinks = document.getElementById('nLinks');
+  burger.addEventListener('click', () => nLinks.classList.toggle('open'));
+  burger.addEventListener('keydown', e => e.key === 'Enter' && nLinks.classList.toggle('open'));
+  nLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nLinks.classList.remove('open')));
+</script>
+</body>
+</html>
