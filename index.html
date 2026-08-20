@@ -357,12 +357,63 @@
     .stats{grid-template-columns:1fr 1fr;}
     footer{flex-direction:column;align-items:flex-start;}
   }
+
+  /* =========================================
+     BUILD-IN INTRO — logo & nav slide in, portfolio
+     cards rise from below in a staggered cascade.
+     Pre-state applies only when JS has flagged
+     <html> (no flash-of-hidden if JS fails), and is
+     neutralised under prefers-reduced-motion.
+  ========================================= */
+  :root{--ease-snap:cubic-bezier(.22,1,.36,1);--ease-over:cubic-bezier(.34,1.42,.5,1);}
+  html.anim-ready .n-logo{opacity:0;transform:translateX(-44px);}
+  html.anim-ready .n-links li{opacity:0;transform:translateY(-18px);}
+  html.anim-ready .n-btn{opacity:0;transform:translateY(-18px);}
+  html.anim-ready .intro-bio,
+  html.anim-ready .intro-label{opacity:0;transform:translateY(28px);}
+  html.anim-ready .proj-card{opacity:0;transform:translateY(64px) scale(.985);}
+
+  html.anim-ready .n-logo,
+  html.anim-ready .n-links li,
+  html.anim-ready .n-btn{
+    transition:opacity .5s var(--ease-over), transform .55s var(--ease-over);
+    will-change:transform,opacity;}
+  html.anim-ready .intro-bio,
+  html.anim-ready .intro-label{
+    transition:opacity .5s var(--ease-snap), transform .5s var(--ease-snap);
+    will-change:transform,opacity;}
+  html.anim-ready .proj-card{
+    transition:opacity .5s var(--ease-snap), transform .52s var(--ease-snap);
+    will-change:transform,opacity;}
+
+  html.anim-ready .n-logo{transition-delay:.04s;}
+  html.anim-ready .n-links li:nth-child(1){transition-delay:.12s;}
+  html.anim-ready .n-links li:nth-child(2){transition-delay:.17s;}
+  html.anim-ready .n-links li:nth-child(3){transition-delay:.22s;}
+  html.anim-ready .n-btn{transition-delay:.26s;}
+  html.anim-ready .intro-bio{transition-delay:.22s;}
+  html.anim-ready .intro-label{transition-delay:.30s;}
+  html.anim-ready .proj-card{transition-delay:calc(.34s + var(--i,0)*.045s);}
+
+  html.anim-ready.anim-run .n-logo,
+  html.anim-ready.anim-run .n-links li,
+  html.anim-ready.anim-run .n-btn,
+  html.anim-ready.anim-run .intro-bio,
+  html.anim-ready.anim-run .intro-label,
+  html.anim-ready.anim-run .proj-card{opacity:1;transform:none;}
+
+  @media (prefers-reduced-motion:reduce){
+    html.anim-ready .n-logo,html.anim-ready .n-links li,html.anim-ready .n-btn,
+    html.anim-ready .intro-bio,html.anim-ready .intro-label,html.anim-ready .proj-card{
+      opacity:1!important;transform:none!important;transition:none!important;}
+  }
 </style>
 </head>
 <body>
+<script>document.documentElement.classList.add('anim-ready');</script>
 
 <nav id="nav" aria-label="Primary navigation">
-  <div class="n-logo"><a href="index.html"><img src="assets/logo/richardson.png" alt="Richardson — home"></a></div>
+  <div class="n-logo"><a href="index.html"><img src="logo/richardson.png" alt="Richardson — home"></a></div>
   <ul class="n-links" id="nLinks">
     <li><a href="#work">Work</a></li>
     <li><a href="about.html">About</a></li>
@@ -379,7 +430,7 @@
         <p>Rob Richardson is a freelance graphic designer in Manchester with 20+ years of agency experience. I do brand identities, print, packaging and digital - for everyone from early-stage start-ups to big names like the NHS, BCLP, Manchester Museum, Mind Tools, Manchester Art Fair and the Ministry of Justice.</p>
       </div>
       <div class="intro-label">
-        <p class="sec-label">Portfolio / 14 Projects</p>
+        <p class="sec-label">Portfolio / 15 Projects</p>
         <h2 class="sec-title" id="workTitle">SELECTED<br>WORK</h2>
       </div>
     </div>
@@ -390,12 +441,12 @@
         <div class="proj-copy"><p class="proj-num">01</p><h3 class="proj-name">Manchester Art Fair</h3><div class="proj-tags"><span class="proj-tag">OOH Advertising</span><span class="proj-tag">Campaign</span></div></div>
       </a>
       <a href="project-bclp.html" class="proj-card" aria-label="BCLP Law exhibition roller banners project">
-        <div class="proj-img"><img src="assets/images/18_BCLP_Law_Presentation-6.jpg.jpeg" alt="BCLP Law infrastructure practice roller banners — pair of pull-up exhibition stands against dark teal studio background" loading="lazy"></div>
+        <div class="proj-img"><img src="assets/images/BCLP_Law_Presentation-6.jpg" alt="BCLP Law infrastructure practice roller banners — pair of pull-up exhibition stands against dark teal studio background" loading="lazy"></div>
         <div class="proj-copy"><p class="proj-num">02</p><h3 class="proj-name">BCLP Law</h3><div class="proj-tags"><span class="proj-tag">Print</span><span class="proj-tag">Exhibition</span></div></div>
       </a>
 
       <a href="project-manchester-museum.html" class="proj-card" id="card-mm" aria-label="Manchester Museum Volunteer Handbook editorial design project">
-        <div class="proj-img"><img src="assets/images/32_MM_Vol_Brochure_Cover-768x768.jpg.jpeg" alt="Manchester Museum Volunteer Handbook — stacked teal printed booklets with white logomark and bold typography" loading="lazy"></div>
+        <div class="proj-img"><img src="assets/images/MM_Vol_Brochure_Bavk_Cover.jpg" alt="Manchester Museum Volunteer Handbook — stacked teal printed booklets with white logomark and bold typography" loading="lazy"></div>
         <div class="proj-copy"><p class="proj-num">03</p><h3 class="proj-name">Manchester Museum</h3><div class="proj-tags"><span class="proj-tag">Print</span><span class="proj-tag">Editorial</span><span class="proj-tag">Branding</span></div></div>
       </a>
       <a href="project-mindtools.html" class="proj-card" aria-label="MindTools custom learning brochure design project">
@@ -412,7 +463,7 @@
         <div class="proj-copy"><p class="proj-num">06</p><h3 class="proj-name">Jam Pan</h3><div class="proj-tags"><span class="proj-tag">Social Media</span><span class="proj-tag">Motion</span><span class="proj-tag">Digital</span></div></div>
       </a>
       <a href="project-centauris-shadow.html" class="proj-card" id="card-cs" aria-label="Centauri's Shadow book cover design project">
-        <div class="proj-img"><img src="assets/images/Centauri_Shadow_Cover.jpg" alt="Centauri's Shadow sci-fi novel cover — astronaut silhouette against deep space backdrop with dramatic typography" loading="lazy"></div>
+        <div class="proj-img"><img src="assets/images/Centauri_Shadow_Full.jpg" alt="Centauri's Shadow sci-fi novel cover — astronaut silhouette against deep space backdrop with dramatic typography" loading="lazy"></div>
         <div class="proj-copy"><p class="proj-num">07</p><h3 class="proj-name">Centauri's Shadow</h3><div class="proj-tags"><span class="proj-tag">Book Cover</span><span class="proj-tag">Typography</span><span class="proj-tag">Editorial</span></div></div>
       </a>
       <a href="project-anders-pink.html" class="proj-card" aria-label="Anders Pink website design project">
@@ -440,8 +491,12 @@
         <div class="proj-copy"><p class="proj-num">13</p><h3 class="proj-name">Ready Player One</h3><div class="proj-tags"><span class="proj-tag">Motion</span><span class="proj-tag">Animation</span></div></div>
       </a>
       <a href="project-jabface.html" class="proj-card" aria-label="NHS JabFace flu vaccination campaign project">
-        <div class="proj-img"><img src="assets/images/jabface_600x600_4.jpg" alt="#JabFace — Liverpool Community Health NHS transmedia campaign, desktop and mobile mockup" loading="lazy"></div>
+        <div class="proj-img"><img src="assets/images/jabface_900x600_2.jpg" alt="#JabFace — Liverpool Community Health NHS transmedia campaign, desktop and mobile mockup" loading="lazy"></div>
         <div class="proj-copy"><p class="proj-num">14</p><h3 class="proj-name">NHS</h3><div class="proj-tags"><span class="proj-tag">Campaign</span><span class="proj-tag">Digital</span></div></div>
+      </a>
+      <a href="project-cmprssr.html" class="proj-card" aria-label="cmprssr — batch image compression Mac app project">
+        <div class="proj-img"><img src="assets/images/cmprssr-tile.png" alt="cmprssr — batch image compression Mac app brand tile on acid yellow" loading="lazy"></div>
+        <div class="proj-copy"><p class="proj-num">15</p><h3 class="proj-name">cmprssr</h3><div class="proj-tags"><span class="proj-tag">Product Design</span><span class="proj-tag">App</span></div></div>
       </a>
 
     </div>
@@ -546,6 +601,17 @@
 <div class="edge-fx bot" aria-hidden="true"></div>
 
 <script>
+  // ── BUILD-IN INTRO ──────────────────────
+  // Number each card so the CSS stagger (--i) cascades in DOM order,
+  // then flip <html> to .anim-run once the page has loaded to play it.
+  (function(){
+    const root = document.documentElement;
+    document.querySelectorAll('.proj-card').forEach((c,i) => c.style.setProperty('--i', i));
+    const run = () => requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add('anim-run')));
+    if (document.readyState === 'complete') run();
+    else window.addEventListener('load', run);
+  })();
+
   const burger = document.getElementById('burger');
   const nLinks = document.getElementById('nLinks');
   burger.addEventListener('click', () => nLinks.classList.toggle('open'));
