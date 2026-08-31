@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Day-by-day gig, record shop and food guide for a California road trip, 30 September to 14 October 2026.">
+<meta name="robots" content="noindex, nofollow">
+<title>Fifty in California</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --paper:      #E9E8E0;
+    --surface:    #F5F4EE;
+    --surface-2:  #DFDDD3;
+    --ink:        #16181C;
+    --ink-2:      #55585E;
+    --ink-3:      #7C7F84;
+    --rule:       #C7C5B9;
+    --flame:      #D4330C;
+    --federal:    #1B39C4;
+    --shadow:     rgba(22,24,28,.10);
+
+    --display: "Anton", "Haettenschweiler", "Arial Narrow", sans-serif;
+    --body: "Newsreader", Georgia, "Times New Roman", serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+    --measure: 66ch;
+    --step--1: clamp(.78rem, .76rem + .1vw, .84rem);
+    --step-0:  clamp(1rem, .97rem + .16vw, 1.09rem);
+    --step-1:  clamp(1.2rem, 1.14rem + .3vw, 1.4rem);
+    --step-2:  clamp(1.5rem, 1.38rem + .6vw, 1.9rem);
+    --step-3:  clamp(2.1rem, 1.8rem + 1.5vw, 3.1rem);
+    --step-4:  clamp(3rem, 2.2rem + 4vw, 6rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:     #131519;
+      --surface:   #1A1D22;
+      --surface-2: #23272E;
+      --ink:       #E9E7DF;
+      --ink-2:     #A5A8A4;
+      --ink-3:     #83868B;
+      --rule:      #2E3239;
+      --flame:     #FF6038;
+      --federal:   #86A2FF;
+      --shadow:    rgba(0,0,0,.4);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:     #131519;
+    --surface:   #1A1D22;
+    --surface-2: #23272E;
+    --ink:       #E9E7DF;
+    --ink-2:     #A5A8A4;
+    --ink-3:     #83868B;
+    --rule:      #2E3239;
+    --flame:     #FF6038;
+    --federal:   #86A2FF;
+    --shadow:    rgba(0,0,0,.4);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: var(--step-0);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 clamp(1.1rem, 4vw, 3rem); }
+
+  /* ---------- masthead ---------- */
+
+  .masthead { padding: clamp(2.5rem, 7vw, 5rem) 0 clamp(1.5rem, 3vw, 2.5rem); }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--flame);
+    margin: 0 0 1.4rem;
+  }
+
+  .wordmark {
+    font-family: var(--display);
+    font-size: var(--step-4);
+    line-height: .84;
+    letter-spacing: .005em;
+    text-transform: uppercase;
+    margin: 0;
+    color: var(--ink);
+    position: relative;
+    text-wrap: balance;
+  }
+  /* single riso misregistration — the one flourish */
+  .wordmark span { position: relative; display: inline-block; }
+  .wordmark span::before {
+    content: attr(data-echo);
+    position: absolute;
+    left: -.055em; top: .035em;
+    color: var(--flame);
+    mix-blend-mode: multiply;
+    opacity: .85;
+    z-index: -1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .wordmark span::before { mix-blend-mode: screen; opacity: .6; }
+  }
+  :root[data-theme="dark"] .wordmark span::before { mix-blend-mode: screen; opacity: .6; }
+
+  .standfirst {
+    max-width: var(--measure);
+    font-size: var(--step-1);
+    line-height: 1.45;
+    color: var(--ink-2);
+    margin: 1.8rem 0 0;
+  }
+
+  .vitals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem 2rem;
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--ink-3);
+    margin-top: 2rem;
+    padding-top: 1.2rem;
+    border-top: 2px solid var(--ink);
+  }
+  .vitals b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- generic section ---------- */
+
+  section { padding: clamp(2.5rem, 5vw, 4rem) 0; border-top: 1px solid var(--rule); }
+  section:first-of-type { border-top: none; }
+
+  h2 {
+    font-family: var(--display);
+    text-transform: uppercase;
+    font-size: var(--step-3);
+    line-height: .95;
+    letter-spacing: .01em;
+    margin: 0 0 .4rem;
+    text-wrap: balance;
+  }
+  h2 em { font-style: normal; color: var(--flame); }
+
+  .kicker {
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 1.6rem;
+  }
+
+  p { max-width: var(--measure); }
+  h3 { font-family: var(--body); font-size: var(--step-1); font-weight: 600; margin: 2rem 0 .4rem; text-wrap: balance; }
+  a { color: var(--federal); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--flame); outline-offset: 3px; border-radius: 2px; }
+
+  /* ---------- decisions ---------- */
+
+  .decisions { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: 1.5rem; }
+  @media (min-width: 860px) { .decisions { grid-template-columns: repeat(3, 1fr); } }
+
+  .decision { background: var(--surface); padding: 1.6rem 1.4rem; display: flex; flex-direction: column; gap: .5rem; }
+  .decision .num {
+    font-family: var(--mono); font-size: var(--step--1); font-weight: 600;
+    letter-spacing: .1em; color: var(--flame);
+  }
+  .decision h3 { margin: 0; font-size: var(--step-1); line-height: 1.25; }
+  .decision p { margin: 0; font-size: var(--step--1); line-height: 1.55; color: var(--ink-2); max-width: none; }
+
+  /* ---------- day spine ---------- */
+
+  .day {
+    display: grid;
+    gap: .6rem 2.5rem;
+    padding: 2.2rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .day:first-of-type { border-top: 2px solid var(--ink); }
+  @media (min-width: 860px) { .day { grid-template-columns: 12rem 1fr; } }
+
+  .daterail { font-family: var(--mono); font-size: var(--step--1); line-height: 1.5; }
+  .daterail .dow { display: block; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+  .daterail .city { display: block; color: var(--ink-3); text-transform: uppercase; letter-spacing: .08em; margin-top: .35rem; }
+  .daterail .flag {
+    display: inline-block; margin-top: .6rem; padding: .15rem .45rem;
+    background: var(--flame); color: #FFF7F2; font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase; font-size: .72rem;
+  }
+
+  .daybody > :first-child { margin-top: 0; }
+  .dayhead { font-family: var(--display); text-transform: uppercase; font-size: var(--step-2); line-height: 1; margin: 0 0 .7rem; }
+  .daybody p { margin: .5rem 0; }
+
+  /* ---------- gig entries ---------- */
+
+  .gigs { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .gig { background: var(--surface); padding: 1rem 1.1rem; }
+  .gig.pick { background: var(--surface-2); box-shadow: inset 3px 0 0 var(--flame); }
+  .gig .act { font-weight: 600; font-size: var(--step-1); line-height: 1.25; display: block; }
+  .gig .meta {
+    font-family: var(--mono); font-size: var(--step--1); color: var(--ink-3);
+    letter-spacing: .04em; margin-top: .2rem; display: block;
+  }
+  .gig .why { margin: .45rem 0 0; font-size: var(--step--1); color: var(--ink-2); line-height: 1.55; max-width: 60ch; }
+  .gig .why a { font-family: var(--mono); font-size: .95em; }
+
+  /* ---------- listings (records, food) ---------- */
+
+  .listing { list-style: none; padding: 0; margin: 1.2rem 0 0; display: grid; gap: 1.1rem; }
+  @media (min-width: 760px) { .listing { grid-template-columns: 1fr 1fr; gap: 1.1rem 2.5rem; } }
+  .listing li { border-top: 1px solid var(--rule); padding-top: .8rem; }
+  .listing .name { font-weight: 600; display: block; }
+  .listing .addr { font-family: var(--mono); font-size: var(--step--1); color: var(--ink-3); display: block; margin-top: .15rem; }
+  .listing .note { font-size: var(--step--1); color: var(--ink-2); margin: .4rem 0 0; line-height: 1.55; }
+
+  /* ---------- callout ---------- */
+
+  .callout {
+    border: 2px solid var(--ink);
+    background: var(--surface);
+    padding: clamp(1.4rem, 3vw, 2.2rem);
+    margin: 2rem 0 0;
+  }
+  .callout h3 { margin-top: 0; font-family: var(--display); text-transform: uppercase; font-size: var(--step-2); font-weight: 400; letter-spacing: .01em; }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .caution { border-color: var(--flame); }
+  .caution h3 { color: var(--flame); }
+
+  /* ---------- table ---------- */
+
+  .scroller { overflow-x: auto; margin-top: 1.2rem; }
+  table { border-collapse: collapse; width: 100%; min-width: 34rem; font-size: var(--step--1); }
+  th, td { text-align: left; padding: .6rem .8rem .6rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { font-family: var(--mono); text-transform: uppercase; letter-spacing: .08em; font-size: .74rem; color: var(--ink-3); font-weight: 600; }
+  td.when { font-family: var(--mono); white-space: nowrap; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+  /* ---------- details ---------- */
+
+  details { border-top: 1px solid var(--rule); padding: .9rem 0; }
+  summary { cursor: pointer; font-weight: 600; }
+  details p, details ul { font-size: var(--step--1); color: var(--ink-2); }
+
+  ul.plain { padding-left: 1.1rem; max-width: var(--measure); }
+  ul.plain li { margin: .35rem 0; }
+
+  footer { border-top: 2px solid var(--ink); padding: 2rem 0 4rem; font-size: var(--step--1); color: var(--ink-3); font-family: var(--mono); line-height: 1.7; }
+  footer a { color: var(--ink-2); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    a { transition: color .15s ease; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">30 September – 14 October 2026 · Rob, Liam &amp; Tom</p>
+    <h1 class="wordmark"><span data-echo="Fifty in">Fifty in</span><br><span data-echo="California">California</span></h1>
+    <p class="standfirst">San Francisco, the coast road, and eight days in Los Angeles — sorted against 300,000 scrobbles rather than a tourist board. Everything below was checked against a venue calendar, a ticket page or a box office. Where it couldn't be, it says so.</p>
+    <div class="vitals">
+      <span><b>5 nights</b> San Francisco</span>
+      <span><b>1 night</b> Pismo Beach</span>
+      <span><b>4 nights</b> West Hollywood</span>
+      <span><b>3 nights</b> Santa Monica</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Three things to <em>settle now</em></h2>
+    <p class="kicker">Everything else can wait until you land</p>
+    <div class="decisions">
+      <div class="decision">
+        <span class="num">01</span>
+        <h3>Book Mastodon</h3>
+        <p>Saturday 10 October, Hollywood Palladium, with Deafheaven and Alcest. From $53, on sale, not sold out. It is the birthday night and it's a 20-minute walk from The Moment. This is the easiest good decision on the trip.</p>
+      </div>
+      <div class="decision">
+        <span class="num">02</span>
+        <h3>Book dälek</h3>
+        <p>Sunday 11 October, Moroccan Lounge downtown. A 275-capacity room and he's in your top fifteen of the last year. Rooms that size holding an artist that specific do not stay available.</p>
+      </div>
+      <div class="decision">
+        <span class="num">03</span>
+        <h3>Decide about the flight</h3>
+        <p>Stones Throw's 30th anniversary festival runs 16–18 October, three days after you fly home. See the case for moving it at the bottom of this page — it isn't only the festival.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The trip, <em>day by day</em></h2>
+    <p class="kicker">Gigs · food · what's actually on</p>
+
+    <div class="day">
+      <div class="daterail">
+        <span class="dow">Wed 30 Sep</span>
+        <span class="city">San Francisco</span>
+        <span class="flag">Big night</span>
+      </div>
+      <div class="daybody">
+        <h3 class="dayhead">Landing, and the best night of the SF leg</h3>
+        <p>You land at 15:55 after roughly eighteen hours in transit. Annoyingly, this is also the strongest night for gigs in the whole San Francisco stretch — four good shows, all on the same evening, and then Thursday and Sunday go quiet.</p>
+        <ul class="gigs">
+          <li class="gig pick">
+            <span class="act">Show Me the Body + Lip Critic + Whispers + Truck Violence</span>
+            <span class="meta">August Hall, 420 Mason St · doors 18:30 · from $40 · all ages</span>
+            <p class="why">The realistic one. August Hall is a two-minute walk from the door of the Spero, so you can check in, shower and stroll over — and walk back out the moment jetlag wins. NYC hardcore with Lip Critic's noise-electronics underneath. <a href="https://www.augusthallsf.com/calendar/">Calendar</a></p>
+          </li>
+          <li class="gig">
+            <span class="act">Chat Pile + Soul Glo + Virga</span>
+            <span class="meta">Regency Ballroom · 19:30 · from $32 · 20 min walk</span>
+            <p class="why">On paper the best bill of the five nights — sludge filth plus the most interesting hardcore band in America. On a landing day it's a big ask. <a href="https://dothebay.com/events/2026/9/30/chat-pile-tickets">Listing</a></p>
+          </li>
+          <li class="gig">
+            <span class="act">JPEGMAFIA + redveil</span>
+            <span class="meta">The Warfield · 19:30 · from $55 · 8 min walk</span>
+            <p class="why">Billed as the Experimental Rap Tour, which is about right for the clipping. and Saul Williams end of your listening. <a href="https://www.thewarfieldtheatre.com/events">Calendar</a></p>
+          </li>
+          <li class="gig">
+            <span class="act">Author &amp; Punisher + Guiltless + Ex Everything</span>
+            <span class="meta">Neck of the Woods, Inner Richmond · doors 20:00</span>
+            <p class="why">Industrial doom performed on self-built machines. Sits between Neurosis and Blawan, which is a narrow gap to sit in. <a href="https://www.songkick.com/concerts/43263212-author-and-punisher-at-neck-of-the-woods">Listing</a></p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="daterail">
+        <span class="dow">Thu 1 Oct</span>
+        <span class="city">San Francisco</span>
+      </div>
+      <div class="daybody">
+        <h3 class="dayhead">Lower Haight, then Oakland</h3>
+        <p>Daytime: the record crawl. Groove Merchant and Vinyl Dreams sit two doors apart on Haight Street, and Amoeba is a twelve-minute walk further up. One Muni ride from the hotel and you can lose an afternoon happily.</p>
+        <ul class="gigs">
+          <li class="gig pick">
+            <span class="act">M. Sayyid (Antipop Consortium) + Jel (Anticon) + Heavy Arts Ensemble</span>
+            <span class="meta">Thee Stork Club, Uptown Oakland · 20:00 · $15–20 · 21+</span>
+            <p class="why">The sleeper pick of the trip. Antipop Consortium and Anticon are the exact lineage running from dälek through to Infinity Knives, playing a 150-capacity dive bar for twenty dollars. BART to 19th Street. <a href="https://theestorkclub.com/calendar/">Calendar</a></p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="daterail">
+        <span class="dow">Fri 2 Oct</span>
+        <span class="city">San Francisco</span>
+      </div>
+      <div class="daybody">
+        <h3 class="dayhead">Hardly Strictly starts, and it's free</h3>
+        <p>Hardly Strictly Bluegrass takes over Golden Gate Park from today until Sunday. Six stages, no tickets, no wristbands, endowed in perpetuity by a late banker who wanted the city to have it for nothing. The name badly undersells the booking, which runs well past bluegrass. Expect the Haight to be rammed — use Muni, leave the car.</p>
+        <ul class="gigs">
+          <li class="gig">
+            <span class="act">Deerhoof + Greyhound + Etch</span>
+            <span class="meta">Bottom of the Hill, Potrero · $33</span>
+            <p class="why">Thirty years of art-noise and still awkward in the right ways. Bottom of the Hill is the best small room in the city.</p>
+          </li>
+          <li class="gig">
+            <span class="act">Death From Above 1979</span>
+            <span class="meta">UC Theatre, Berkeley · $39.50 + fees</span>
+            <p class="why">Noisy dance-punk, edging towards legacy act. They also play LA on the 8th, so you get two goes at it.</p>
+          </li>
+        </ul>
+        <p>Evening alternative for the design half of your brain: the opening reception at the San Francisco Center for the Book for a show of Betsy Davids' letterpress and artists' books, 375 Rhode Island St, free.</p>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="daterail">
+        <span class="dow">Sat 3 Oct</span>
+        <span class="city">San Francisco</span>
+        <span class="flag">Book ahead</span>
+      </div>
+      <div class="daybody">
+        <h3 class="dayhead">Letterform Archive, then breakcore</h3>
+        <p>The Letterform Archive runs a collections tour, 13:30–15:00, led by the founder Rob Saunders. You handle the originals rather than looking at them through glass. Twenty-five years into a career in brand and print, this is the single best two hours available to you in California, and it needs booking. 2325 Third St, Floor 4R.</p>
+        <ul class="gigs">
+          <li class="gig pick">
+            <span class="act">Igorrr + Secret Chiefs 3 + Violent Magic Orchestra</span>
+            <span class="meta">Great American Music Hall · doors 18:30 · $32.50–38 · 10 min walk</span>
+            <p class="why">Breakcore spliced with death metal — Venetian Snares rewired through Mastodon, essentially. Best value of the run and the closest proper venue to the hotel. <a href="https://gamh.com/calendar/">Calendar</a></p>
+          </li>
+          <li class="gig">
+            <span class="act">Hamdi + Conducta + Sam Binga</span>
+            <span class="meta">Regency Ballroom · 20:00 · 18+</span>
+            <p class="why">UK bass and dubstep. Sam Binga is the reason to go if you're there for The Bug rather than the drop.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="daterail">
+        <span class="dow">Sun 4 Oct</span>
+        <span class="city">Oakland &amp; Berkeley</span>
+      </div>
+      <div class="daybody">
+        <h3 class="dayhead">Cross the bay</h3>
+        <p>Give the East Bay a full day. 1-2-3-4 Go! in Temescal is the hardcore shop — Converge, Quicksand, Fiddlehead territory. Stranded on College Ave does the noise and post-punk end, Cone Shape Top on Broadway is electronic only and open Thursday to Sunday, and Econo Jam on Telegraph has thousands of records at a dollar or two. Amoeba Berkeley and Rasputin face each other across Telegraph, so that's free.</p>
+        <p>While you're over there: 924 Gilman Street is ten minutes from Amoeba Berkeley. Volunteer-run, all ages, tickets around eight dollars, and the most storied hardcore room in America. Their calendar doesn't go out this far yet — check it in late September.</p>
+        <ul class="gigs">
+          <li class="gig">
+            <span class="act">Acid Mothers Temple + Magick Potion</span>
+            <span class="meta">Bottom of the Hill · back in the city</span>
+            <p class="why">Japanese psych-noise, thirty years deep and still deafening. The Mogwai-adjacent option if you'd rather stay west.</p>
+          </li>
+        </ul>
+        <p>Also on: the Castro Street Fair, the oldest of the city's street fairs, and the last day of Hardly Strictly.</p>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="daterail">
+        <span class="dow">Mon 5 Oct</span>
+        <span class="city">SF → Pismo Beach</span>
+        <span class="flag">Long day</span>
+      </div>
+      <div class="daybody">
+        <h3 class="dayhead">The coast road</h3>
+        <p>250 miles. Google will tell you five and a half hours; allow eight or nine, leave by eight in the morning, and accept that you cannot do all of the below. Highway 1 is open end to end for the first time in three years — the last slide at Regent's reopened in January — but check <a href="https://roads.dot.ca.gov/?roadnumber=1">Caltrans</a> before you set off.</p>
+        <p><strong>The four nobody tells you about.</strong> Elkhorn Slough at Moss Landing has the densest population of sea otters on the coast, in an estuary everyone drives straight past; pontoon and kayak tours run from Moss Landing Road and want booking. Garrapata State Park south of Carmel has unmarked turnouts, no facilities and the best cliff walking north of Big Sur. The Henry Miller Memorial Library is a bookshop in a redwood garden with an outdoor stage and genuinely radical stock. And Nitt Witt Ridge in Cambria is a house one man spent 51 years building out of abalone shells and car parts, five minutes from Hearst Castle and infinitely more interesting.</p>
+        <p><strong>Eating.</strong> Phil's Fish Market at Moss Landing does cioppino in a shed on the harbour. Ruddell's Smokehouse in Cayucos is a shack doing smoked albacore tacos, five minutes off the road.</p>
+        <div class="callout">
+          <h3>Dinner: Jocko's, Nipomo</h3>
+          <p>125 N Thompson Ave, fifteen minutes inland from Pismo, open Monday to Friday from 16:00. Red-oak pit, enormous spencer steaks, zero pretension, and a room full of people who have been going for forty years. It is the meal of the road trip and Monday is one of the days it's open. Ring ahead for three.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="daterail">
+        <span class="dow">Tue 6 Oct</span>
+        <span class="city">Pismo → Los Angeles</span>
+      </div>
+      <div class="daybody">
+        <h3 class="dayhead">Down to Sunset Boulevard</h3>
+        <p>Old West Cinnamon Rolls on Dolliver St for the drive out. Then two stops worth the detour: the Guadalupe-Nipomo Dunes, where DeMille buried the Egyptian set from the 1923 <em>Ten Commandments</em> in the sand and left it there — the Dunes Center in Guadalupe has the excavated sphinx fragments — and Los Alamos, one block of Bell Street with a very good bakery and an antique row, which is a far better lunch stop than Solvang.</p>
+        <p>Nothing on for gigs tonight. I checked every listing in LA and there's nothing in your lane, so make it a dinner night — Musso &amp; Frank on Hollywood Boulevard opens Tuesday, has been going since 1919, and the counter is the place to sit.</p>
+        <p class="why"><em>One to avoid today:</em> Cold Spring Tavern up San Marcos Pass is a genuinely great 1868 stagecoach stop, and it's closed Tuesdays and Wednesdays.</p>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="daterail">
+        <span class="dow">Wed 7 Oct</span>
+        <span class="city">West Hollywood</span>
+      </div>
+      <div class="daybody">
+        <h3 class="dayhead">Highland Park, and the Stones Throw pilgrimage</h3>
+        <p>Another dead night for gigs, so spend it properly. Highland Park is the best record cluster in the city — Gimme Gimme, Arroyo and The Artform Studio are all within a few blocks of North Figueroa. Poo-Bah in Pasadena is twenty minutes east and is the most important shop on the list: underground and abstract hip hop is literally its specialism, and it's where the whole Lootpack and Madlib circle came up.</p>
+        <div class="callout">
+          <h3>End the day at Gold Line</h3>
+          <p>5607 N Figueroa St, open until 2am Wednesday to Saturday. Peanut Butter Wolf's vinyl listening bar, sitting directly underneath the Stones Throw offices — 7,500 records from his own collection, McIntosh amps, Altec Lansings, and a strict no-laptops policy. Rappcats, the old Madlib-orbit shop up the road, closed at the end of 2024, so this is now the pilgrimage. Build the Highland Park day so it finishes here.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="daterail">
+        <span class="dow">Thu 8 Oct</span>
+        <span class="city">West Hollywood</span>
+        <span class="flag">Clash</span>
+      </div>
+      <div class="daybody">
+        <h3 class="dayhead">Lakers, or a gig</h3>
+        <p>The one basketball night available to you, and it's a straight clash with two decent shows.</p>
+        <ul class="gigs">
+          <li class="gig pick">
+            <span class="act">Lakers vs Sacramento Kings</span>
+            <span class="meta">Crypto.com Arena, 1111 S Figueroa St · 19:30 · NBA preseason</span>
+            <p class="why">The only Lakers home game in your window, confirmed on the released preseason schedule. Preseason means cheap seats and a half-serious game, which for a first visit to that building is no bad thing.</p>
+          </li>
+          <li class="gig">
+            <span class="act">Death From Above 1979 + Rickshaw Billie's Burger Patrol</span>
+            <span class="meta">The Belasco, DTLA · 19:00</span>
+            <p class="why">A beautiful room. Same band as the Berkeley date, so only relevant if you skipped that.</p>
+          </li>
+          <li class="gig">
+            <span class="act">Soulfly + Nailbomb + Incite</span>
+            <span class="meta">Whisky a Go Go, 8901 Sunset · $43.75</span>
+            <p class="why">Nailbomb is the draw and the Whisky is a walk from your hotel. Not the best show of the week, but the most convenient by a mile.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="daterail">
+        <span class="dow">Fri 9 Oct</span>
+        <span class="city">West Hollywood</span>
+      </div>
+      <div class="daybody">
+        <h3 class="dayhead">Three very different rooms</h3>
+        <ul class="gigs">
+          <li class="gig">
+            <span class="act">ScHoolboy Q — Blank Face LP, ten years on</span>
+            <span class="meta">Hollywood Palladium · 20:00 · 20 min walk</span>
+            <p class="why">Not underground, but <em>Blank Face</em> is the good one and a full-album anniversary show is an occasion. He also plays The Novo on Monday the 12th if tonight is spoken for.</p>
+          </li>
+          <li class="gig">
+            <span class="act">The Killing Floors + Street Walkin' Cheetahs + The Strains</span>
+            <span class="meta">Permanent Records Roadhouse, Cypress Park · 21:00 · 21+</span>
+            <p class="why">A record shop, a bar and a hundred-capacity venue in the same building. LA punk, cheap, and exactly the format you'd want on a Friday.</p>
+          </li>
+          <li class="gig">
+            <span class="act">Bart Skils — four-hour set</span>
+            <span class="meta">Warehouse, location emailed on the day · 23:00–05:00 · $25–45 · 21+</span>
+            <p class="why">Driving Drumcode-school techno. More mainstream than the Saturday warehouse party below, same crew and format. <a href="https://ra.co/events/2504787">RA</a></p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="daterail">
+        <span class="dow">Sat 10 Oct</span>
+        <span class="city">→ Santa Monica</span>
+        <span class="flag">The birthday</span>
+      </div>
+      <div class="daybody">
+        <h3 class="dayhead">Fifty</h3>
+        <p>Also your changeover day, so do the move to the Delfina in the morning and get it out of the way — the Palladium is twenty minutes' walk from The Moment but twelve miles from Santa Monica, so you'll be taxiing back in either way.</p>
+        <ul class="gigs">
+          <li class="gig pick">
+            <span class="act">Mastodon + Deafheaven + Alcest</span>
+            <span class="meta">Hollywood Palladium, 6215 Sunset Blvd · 18:00 · from $53 · on sale</span>
+            <p class="why">An all-time top-forty band of yours headlining a landmark room, with a blackgaze undercard that would headline most nights on its own. There is no better birthday option in this city on this date. <a href="https://www.ticketmaster.com/mastodon-hollywood-california-10-10-2026/event/090064BD4B3E8A67">Tickets</a></p>
+          </li>
+          <li class="gig pick">
+            <span class="act">DVS1 — four hours, all night · with Mary Yuzovskaya</span>
+            <span class="meta">Warehouse, address sent two hours before · 23:00–06:00 · $25–45 · 21+</span>
+            <p class="why">Because the Mastodon doors are at six, this doesn't clash — it continues. Proper underground warehouse techno, the Blawan lane, and a four-hour DVS1 set is a real event rather than a booking. Metal at six, techno until six. <a href="https://ra.co/events/2510218">RA</a></p>
+          </li>
+          <li class="gig">
+            <span class="act">100 Demons + Death Before Dishonor + Bloodshed</span>
+            <span class="meta">1720, Lincoln Heights · 18:00 · all ages</span>
+            <p class="why">Old-school metallic hardcore in a warehouse, if you'd rather have the Incendiary night than the Mastodon one. Also early enough to make the DVS1 party after.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="daterail">
+        <span class="dow">Sun 11 Oct</span>
+        <span class="city">Santa Monica</span>
+        <span class="flag">Clash</span>
+      </div>
+      <div class="daybody">
+        <h3 class="dayhead">The week's real dilemma</h3>
+        <ul class="gigs">
+          <li class="gig pick">
+            <span class="act">dälek</span>
+            <span class="meta">Moroccan Lounge, 901 E 1st St, Arts District · doors 18:30 · ~275 cap</span>
+            <p class="why">The most on-the-nose booking of the fortnight. Confirmed on both the venue calendar and the band's own routing. Small room, so book it now rather than deciding later. <a href="https://themoroccan.com/calendar/">Calendar</a></p>
+          </li>
+          <li class="gig">
+            <span class="act">Loathe + Fleshwater + Prostitute</span>
+            <span class="meta">Hollywood Palladium · 18:30</span>
+            <p class="why">Head-on clash with dälek, and it's a genuinely hard call: Fleshwater is the Deftones–Quicksand–Glassjaw nerve pressed directly, and Prostitute is in your last-twelve-months top twenty.</p>
+          </li>
+        </ul>
+        <p>Daytime: Yoko Ono's <em>Music of the Mind</em> closes at The Broad today, so it's now or not at all. CicLAvia also shuts the downtown streets to cars entirely, 09:00–16:00 — an empty Broadway is a strange and good thing to see.</p>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="daterail">
+        <span class="dow">Mon 12 Oct</span>
+        <span class="city">Santa Monica</span>
+      </div>
+      <div class="daybody">
+        <h3 class="dayhead">Last full day</h3>
+        <p>The Getty is free, ten minutes up the hill, and the Meier campus plus the view back over the basin is worth as much as the collection. Record Surplus at 12436 Santa Monica Blvd is the only substantial shop on this side of town — a hundred thousand records, heavy on the bargain bins, good for a Wu-Tang and Public Enemy trawl.</p>
+        <p>Evening: ScHoolboy Q's second LA date at The Novo downtown. Note that Musso &amp; Frank is closed Mondays; Dan Tana's on Santa Monica Blvd runs until 1am and is the right kind of red-booth, chicken-parm, no-nonsense room for a last night.</p>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="daterail">
+        <span class="dow">Tue 13 Oct</span>
+        <span class="city">LAX 20:10</span>
+      </div>
+      <div class="daybody">
+        <h3 class="dayhead">Out</h3>
+        <p>Manhattan Beach is south of the airport and makes an easy last stop on the way in — quieter than Santa Monica, good pier, and you're twenty minutes from the terminal. Bay Cities deli on Lincoln Blvd for a Godmother sub to take with you; order ahead online or lose forty minutes to the queue.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Records</h2>
+    <p class="kicker">Verified as trading · addresses for the map</p>
+
+    <h3>San Francisco &amp; the East Bay</h3>
+    <ul class="listing">
+      <li><span class="name">Stranded Records</span><span class="addr">1055 Valencia St, Mission · 11–19 daily</span><p class="note">The best shop in the city for your noise, post-punk and experimental axis. Retail arm of the Superior Viaduct reissue label, in the old Aquarius Records space. Start here.</p></li>
+      <li><span class="name">1-2-3-4 Go! Records</span><span class="addr">420 40th St #5, Temescal, Oakland</span><p class="note">The Bay Area hardcore shop, and a label besides. Non-negotiable given what you've been playing this year.</p></li>
+      <li><span class="name">Groove Merchant</span><span class="addr">687 Haight St, Lower Haight</span><p class="note">Rare soul, funk and breaks — a producer's shop. This is the raw material end of Madlib and DJ Shadow. Hours aren't published anywhere reliable; ring 415-252-5766 first.</p></li>
+      <li><span class="name">Vinyl Dreams</span><span class="addr">593 Haight St · two doors from Groove Merchant</span><p class="note">All vinyl, all electronic: techno, dub, drum &amp; bass, imports. The Squarepusher and Leftfield counterpart to next door.</p></li>
+      <li><span class="name">Cone Shape Top</span><span class="addr">4124 Broadway, Oakland · Thu–Sun only</span><p class="note">Electronic, ambient and experimental, with stock that rotates constantly. Direct hit for Aphex, Blawan, Clark and Zomby. Mind the limited hours.</p></li>
+      <li><span class="name">Econo Jam Records</span><span class="addr">2443 Telegraph Ave, Uptown Oakland · 12–18 daily</span><p class="note">Punk, noise, avant-garde, metal and dub, with thousands of records at a dollar or two. Note the address — one listing site has it wrong.</p></li>
+      <li><span class="name">Thrillhouse Records</span><span class="addr">3422 Mission St · 12–20 daily</span><p class="note">Volunteer-run, not-for-profit DIY punk shop with a free arcade machine. The closest thing here to a British basement record shop.</p></li>
+      <li><span class="name">Amoeba Berkeley</span><span class="addr">2455 Telegraph Ave · Wed–Sun, closed Mon–Tue</span><p class="note">Smaller and cheaper than the Haight branch, with different used stock coming off the student market. Rasputin is directly opposite.</p></li>
+    </ul>
+
+    <h3>Los Angeles</h3>
+    <ul class="listing">
+      <li><span class="name">Poo-Bah Record Shop</span><span class="addr">2636 E Colorado Blvd, Pasadena · Tue–Sun 12–18</span><p class="note">Trading since 1971 and the historic hub of the Pasadena scene that produced Lootpack, Madlib and half of Stones Throw. Underground hip hop is the specialism, not a section. Worth the trek from West Hollywood.</p></li>
+      <li><span class="name">Headline Records</span><span class="addr">7706 Melrose Ave, Fairfax · 12–20 daily</span><p class="note">Punk specialist, ten minutes from your Sunset Blvd hotel, with the best hardcore shirt and patch selection in the city.</p></li>
+      <li><span class="name">Mount Analog</span><span class="addr">2217 Hyperion Ave, Silver Lake · Fri–Sun only</span><p class="note">Esoteric and global electronic, experimental, reissues. The shop most likely to be holding something adjacent to The Bug or dälek. Saturday the 10th and Sunday the 11th are your only windows.</p></li>
+      <li><span class="name">Gimme Gimme Records</span><span class="addr">5810 N Figueroa St, Highland Park</span><p class="note">Twenty thousand LPs, owner-run since 1994, deep used stock. Hours unpublished — call 323-550-1878.</p></li>
+      <li><span class="name">Arroyo Records</span><span class="addr">5123½ York Blvd, Highland Park · Thu–Sun 12–20</span><p class="note">Punk and indie weighted, opened by a musician in the old Wombleton space. Ten minutes from Gimme Gimme.</p></li>
+      <li><span class="name">The Artform Studio</span><span class="addr">5611 N Figueroa St #2, Highland Park</span><p class="note">A record shop inside a hair salon, stocking the jazz and funk that got sampled, and the flagship for Adrian Younge and Ali Shaheed Muhammad's Jazz Is Dead label.</p></li>
+      <li><span class="name">Going Underground</span><span class="addr">356½ E 2nd St, Little Tokyo · 11–19 daily</span><p class="note">Big, broad and open every day — indie, punk, metal, hip hop and electronic under one roof. The reliable one.</p></li>
+      <li><span class="name">Record Surplus</span><span class="addr">12436 Santa Monica Blvd, West LA · 11:30–19 daily</span><p class="note">A hundred thousand records and a huge bargain section. Volume rather than curation, and the only real option once you move to Santa Monica.</p></li>
+    </ul>
+
+    <div class="callout caution">
+      <h3>Don't waste a journey</h3>
+      <p><strong>Rappcats</strong>, the Madlib-orbit shop next to the Stones Throw offices, closed at the end of 2024 — Gold Line is the replacement pilgrimage. <strong>Fat Beats</strong>' LA shop is retail-closed. <strong>Wombleton</strong>, which stocked UK and European imports and would have been perfect for your Fall and Wedding Present habit, has gone; Arroyo is in the space. <strong>In Sheep's Clothing</strong>'s shop and bar are both closed. And <strong>Jacknife Records</strong> appears to have moved out of Atwater Village to Alhambra — check their Instagram before going anywhere near the old Glendale Blvd address.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>For the <em>designer</em></h2>
+    <p class="kicker">Things worth a detour after twenty years in print</p>
+    <ul class="listing">
+      <li><span class="name">Letterform Archive</span><span class="addr">2325 Third St, SF · Thu–Sun · $10</span><p class="note">Book the Saturday 3 October collections tour with the founder. The two current shows close in September and the replacement's dates aren't confirmed — go for the tour, not the gallery.</p></li>
+      <li><span class="name">Arion Press &amp; M&amp;H Type</span><span class="addr">2 Marina Blvd, Bldg B, Fort Mason · showroom Tue–Sat 12–17</span><p class="note">America's last combined letterpress and hot-metal Monotype foundry. Public tours run second Thursdays and third Saturdays, which misses you — but the showroom is free and you can see the pressroom. Ring 415-668-2542 and ask nicely.</p></li>
+      <li><span class="name">William Stout Architectural Books</span><span class="addr">804 Montgomery St, Jackson Square · closed Sun</span><p class="note">Still the best architecture and design bookshop on the west coast.</p></li>
+      <li><span class="name">The Hallidie Building &amp; Maiden Lane</span><span class="addr">130 Sutter St, then 140 Maiden Lane · free, on foot</span><p class="note">The world's first glass curtain wall, from 1918, with cast-iron fire escapes used as ornament — then five minutes away, Frank Lloyd Wright's 1948 shop interior with the spiral ramp he reused at the Guggenheim. Both a short walk from the Spero.</p></li>
+      <li><span class="name">International Printing Museum</span><span class="addr">315 W Torrance Blvd, Carson · Saturdays only, 10–16, $12</span><p class="note">The largest working collection of antique presses anywhere, run with live demonstrations. Saturday the 10th is your only shot and it's thirty minutes from Santa Monica — which does collide with the birthday. The LA Printers Fair, 125 letterpress vendors, is 17–18 October and you miss it by four days.</p></li>
+      <li><span class="name">Lucas Museum of Narrative Art</span><span class="addr">One Lucas Plaza, Exposition Park · closed Tue</span><p class="note">Opened 22 September 2026, so nobody you know will have been. MAD Architects' building, and a collection built on illustration, comics and poster art rather than fine art.</p></li>
+      <li><span class="name">Schindler House (MAK Center)</span><span class="addr">835 N Kings Rd, West Hollywood · Wed–Sun 11–17, $10</span><p class="note">Schindler's 1922 house, effectively on your doorstep for the first four nights. Book ahead.</p></li>
+      <li><span class="name">Watts Towers</span><span class="addr">10624 Graham Ave · tours Thu–Sat only, $12, cash</span><p class="note">Thirty-three years of one untrained man's structural invention, and the restoration is finally finished. No reservations, cash or cheque only.</p></li>
+      <li><span class="name">LACMA</span><span class="addr">5905 Wilshire Blvd</span><p class="note">Two reasons beyond the lamp posts: Zumthor's Geffen Galleries opened in April, a 300-metre concrete arc bridging Wilshire; and Alfonso Gonzalez Jr.'s show, built entirely from LA's hand-painted storefront lettering.</p></li>
+      <li><span class="name">Eames House</span><span class="addr">203 Chautauqua Blvd, Pacific Palisades</span><p class="note">Reopened after the 2025 fire. Tour dates release in the first week of the preceding month, so book in early September or you won't get in. Ten minutes from Santa Monica.</p></li>
+      <li><span class="name">Hennessey + Ingalls</span><span class="addr">300 S Santa Fe Ave, Arts District · 11–19 daily</span><p class="note">Art and architecture books. The Cahuenga branch has closed, so this is the only one left.</p></li>
+      <li><span class="name">The Frolic Room</span><span class="addr">6245 Hollywood Blvd</span><p class="note">A dive bar next to the Pantages, wallpapered in Al Hirschfeld caricatures. Worth a drink for the wallpaper alone.</p></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Eating</h2>
+    <p class="kicker">Institutions, dives, and one very pink hotel</p>
+    <ul class="listing">
+      <li><span class="name">Swan Oyster Depot</span><span class="addr">1517 Polk St, SF</span><p class="note">Eighteen counter stools, no tables, shuts mid-afternoon. Queue by 10:30 or don't bother.</p></li>
+      <li><span class="name">House of Prime Rib</span><span class="addr">1906 Van Ness Ave, SF</span><p class="note">Silver trolleys, spinning salad, exactly calibrated for three blokes. Book weeks ahead.</p></li>
+      <li><span class="name">Tommy's Joynt</span><span class="addr">1101 Geary Blvd, SF</span><p class="note">Hofbrau, carved turkey and buffalo stew, murals across the outside walls, absurdly cheap.</p></li>
+      <li><span class="name">Specs' Twelve Adler Museum Café</span><span class="addr">12 William Saroyan Pl, SF</span><p class="note">Merchant-marine junk covering every surface. The best dive bar in the city, and Li Po Lounge in Chinatown is the second.</p></li>
+      <li><span class="name">La Taqueria</span><span class="addr">2889 Mission St, SF</span><p class="note">Settles the no-rice burrito argument permanently.</p></li>
+      <li><span class="name">Madonna Inn</span><span class="addr">100 Madonna Rd, San Luis Obispo · on the drive</span><p class="note">Oak-pit steak, a cake case, relentless pink, and a men's room with a rock waterfall urinal that is a genuine piece of design history. Stop even if you're not hungry.</p></li>
+      <li><span class="name">Splash Café</span><span class="addr">197 Pomeroy Ave, Pismo Beach</span><p class="note">Clam chowder in a bread bowl. The local rite of passage.</p></li>
+      <li><span class="name">Musso &amp; Frank Grill</span><span class="addr">6667 Hollywood Blvd · Tue–Sun, closed Mon</span><p class="note">Open since 1919. Sit at the counter, have a martini, order the flannel cakes.</p></li>
+      <li><span class="name">Langer's Deli</span><span class="addr">704 S Alvarado St · lunch only, closed Sun</span><p class="note">The #19 pastrami, and better than anything New York has. Non-negotiable.</p></li>
+      <li><span class="name">Philippe the Original</span><span class="addr">1001 N Alameda St · 6–22 daily</span><p class="note">Sawdust floors, double-dipped lamb, since 1908. Cole's, the rival French dip claimant, closed in March after 118 years, so this is the last one standing.</p></li>
+      <li><span class="name">Tiki-Ti</span><span class="addr">4427 W Sunset Blvd · Wed–Sat evenings, cash only</span><p class="note">Twelve stools, family-run since 1961. Go early or you won't get in.</p></li>
+      <li><span class="name">Bay Cities Deli</span><span class="addr">1517 Lincoln Blvd, Santa Monica</span><p class="note">The Godmother. Order online ahead.</p></li>
+      <li><span class="name">Hinano Cafe</span><span class="addr">15 Washington Blvd, Venice · cash</span><p class="note">Sawdust floor, flat-top cheeseburgers, a pool table and some Doors history.</p></li>
+      <li><span class="name">Father's Office</span><span class="addr">1018 Montana Ave, Santa Monica</span><p class="note">Dry-aged Office Burger with gruyère and bacon compote. They will not modify it. Do not ask.</p></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>The <em>near misses</em></h2>
+    <p class="kicker">And the case for moving the flight</p>
+    <p>Your dates are unlucky in a very specific way. Almost everything you'd want lands in the four days after you fly home.</p>
+    <div class="scroller">
+      <table>
+        <thead><tr><th>When</th><th>What</th><th>Where</th></tr></thead>
+        <tbody>
+          <tr><td class="when">6 Oct</td><td>Lakers at Warriors, preseason</td><td>Chase Center — the day after you leave SF</td></tr>
+          <tr><td class="when">16 Oct</td><td>Lakers vs Nuggets</td><td>Crypto.com Arena</td></tr>
+          <tr><td class="when">16–18 Oct</td><td><strong>Stones Throw 30</strong> — Peanut Butter Wolf, J.Rocc, Dâm-Funk, Egyptian Lover, 30+ artists</td><td>Lodge Room, Highland Park</td></tr>
+          <tr><td class="when">17–18 Oct</td><td>LA Printers Fair — 125 letterpress vendors</td><td>International Printing Museum, Carson</td></tr>
+          <tr><td class="when">18 Oct</td><td>LA Record Fair / Beat Swap Meet</td><td>Arrow Lodge Brewing, DTLA</td></tr>
+          <tr><td class="when">14 Oct</td><td>Clippers vs Denver, preseason</td><td>Intuit Dome — the day after you fly</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <h3>Three more nights would buy you a lot</h3>
+      <p>Stones Throw is thirty years old in October and throwing a three-day festival next to its own offices in Highland Park. Madlib, Quasimoto and Madvillain account for something like five thousand plays in your library — this is your label's birthday as well as yours. Stack a Lakers game, a letterpress fair with 125 vendors and a record fair on top, and the same three nights that get you the festival get you all four.</p>
+      <p>The costs are real: a Trailfinders flight change, three more nights of hotel, and a car you'd need to keep. But if it's ever going to be worth doing, it's the year you turn fifty. Worth a phone call to Aimee to price it before you rule it out.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Check again <em>mid-September</em></h2>
+    <p class="kicker">What isn't published yet</p>
+    <ul class="plain">
+      <li><strong>Club nights.</strong> San Francisco announces four to six weeks out, and right now there is genuinely nothing in the Blawan, Clark or G Jones lane across your five nights. That will change. Resident Advisor, Public Works, F8 and Monarch are the places to look.</li>
+      <li><strong>924 Gilman and The Smell.</strong> Neither has posted October. They're the two venues most likely to add exactly the DIY hardcore show you'd want, and neither will appear on any aggregator.</li>
+      <li><strong>Amoeba in-stores.</strong> Free, frequently good, and only listed a couple of weeks ahead.</li>
+      <li><strong>The Museum of Neon Art's Neon Cruise</strong> — an open-top bus tour of LA neon at night — had no October dates listed as of late August. Call 818-696-2149.</li>
+      <li><strong>Small-venue prices.</strong> Moroccan Lounge, 1720 and The Regent don't publish them; the figures above are only where I saw them stated.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Compiled 31 August 2026 from venue calendars, ticket pages and box offices — every gig above was checked on a primary source. Listings move: reconfirm anything you're travelling across a city for.</p>
+    <p>Sources include <a href="https://gamh.com/calendar/">Great American Music Hall</a> · <a href="https://www.augusthallsf.com/calendar/">August Hall</a> · <a href="https://themoroccan.com/calendar/">Moroccan Lounge</a> · <a href="https://www.ticketmaster.com/mastodon-hollywood-california-10-10-2026/event/090064BD4B3E8A67">Ticketmaster</a> · <a href="https://ra.co/events/us/losangeles">Resident Advisor</a> · <a href="https://lakersnation.com/full-lakers-2026-preseason-schedule/">Lakers preseason schedule</a> · <a href="https://www.stonesthrow.com/news/stones-throw-30-anniversary-music-festival/">Stones Throw</a> · <a href="https://letterformarchive.org/events/">Letterform Archive</a> · <a href="https://roads.dot.ca.gov/?roadnumber=1">Caltrans</a></p>
+  </footer>
+
+</div>
+</body>
+</html>
