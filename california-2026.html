@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Day-by-day gig, record shop and food guide for a California road trip, 30 September to 14 October 2026.">
 <meta name="robots" content="noindex, nofollow">
-<title>Fifty in California</title>
+<title>Destination California</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -183,6 +183,26 @@
   .decision h3 { margin: 0; font-size: var(--step-1); line-height: 1.25; }
   .decision p { margin: 0; font-size: var(--step--1); line-height: 1.55; color: var(--ink-2); max-width: none; }
 
+  /* ---------- map ---------- */
+
+  .mapframe { margin-top: 2rem; border: 2px solid var(--ink); background: var(--surface); }
+  .mapframe iframe { display: block; width: 100%; height: clamp(380px, 58vh, 620px); border: 0; }
+  .mapcard {
+    display: flex; flex-direction: column; gap: .4rem;
+    padding: clamp(1.6rem, 4vw, 2.6rem) 1.4rem;
+    text-align: center; text-decoration: none; color: var(--ink);
+    background:
+      repeating-linear-gradient(45deg, transparent 0 11px, var(--surface-2) 11px 12px),
+      var(--surface);
+  }
+  .mapcard strong { font-family: var(--display); text-transform: uppercase; font-size: var(--step-2); font-weight: 400; letter-spacing: .01em; }
+  .mapcard span { font-family: var(--mono); font-size: var(--step--1); letter-spacing: .08em; text-transform: uppercase; color: var(--federal); }
+  .mapcap {
+    font-family: var(--mono); font-size: var(--step--1); letter-spacing: .06em;
+    text-transform: uppercase; color: var(--ink-3);
+    padding: .7rem 1rem; border-top: 1px solid var(--rule);
+  }
+
   /* ---------- day spine ---------- */
 
   .day {
@@ -273,7 +293,7 @@
 
   <header class="masthead">
     <p class="eyebrow">30 September – 14 October 2026 · Rob, Liam &amp; Tom</p>
-    <h1 class="wordmark"><span data-echo="Fifty in">Fifty in</span><br><span data-echo="California">California</span></h1>
+    <h1 class="wordmark"><span data-echo="Destination">Destination</span><br><span data-echo="California">California</span></h1>
     <p class="standfirst">San Francisco, the coast road, and eight days in Los Angeles — sorted against 300,000 scrobbles rather than a tourist board. Everything below was checked against a venue calendar, a ticket page or a box office. Where it couldn't be, it says so.</p>
     <div class="vitals">
       <span><b>5 nights</b> San Francisco</span>
@@ -302,6 +322,17 @@
         <h3>Decide about the flight</h3>
         <p>Stones Throw's 30th anniversary festival runs 16–18 October, three days after you fly home. See the case for moving it at the bottom of this page — it isn't only the festival.</p>
       </div>
+    </div>
+
+        <div class="mapframe">
+      <iframe
+        src="https://www.google.com/maps/d/embed?mid=1gk0ysPL5jamO1uDcQPJITZJbmEi21vo&amp;ll=35.810280109533906%2C-120.3659247&amp;z=7&amp;ehbc=2E312F"
+        title="California trip map — hotels, venues, record shops and the coast road"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+      <p class="mapcap">Hotels, venues, record shops and the coast road, on four layers.
+        <a href="https://www.google.com/maps/d/viewer?mid=1gk0ysPL5jamO1uDcQPJITZJbmEi21vo">Open in Google Maps</a></p>
     </div>
   </section>
 
