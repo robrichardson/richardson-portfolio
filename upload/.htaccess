@@ -1,0 +1,20 @@
+# Drop box — hardening
+
+# Never serve the SQLite database or any stray config, whatever happens.
+<FilesMatch "\.(sqlite|sqlite-wal|sqlite-shm|db|log)$">
+  Require all denied
+</FilesMatch>
+
+# The shared library is an include, not a page.
+<Files "_lib.php">
+  Require all denied
+</Files>
+
+# Keep the drop box out of search results.
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+Options -Indexes

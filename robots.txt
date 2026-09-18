@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /project.html
 
-Sitemap: https://richardson.design/sitemap.xml
+Sitemap: https://robrichardson.co.uk/sitemap.xml

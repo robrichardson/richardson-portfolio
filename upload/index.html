@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drop Box | Rob Richardson</title>
+  <meta name="description" content="Send files to Rob Richardson. No account needed, no size limit.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:#0a0a0a;
+      --fg:#f4f4f0;
+      --acid:#dfe104;
+      --line:#3f3f3f;
+      --dim:#a0a0a0;
+      --red:#ff5f57;
+      --ff-disp:'Space Grotesk',sans-serif;
+      --ff-mono:'JetBrains Mono',monospace;
+    }
+
+    body {
+      background: var(--bg); color: var(--fg);
+      font-family: var(--ff-mono); font-size: 15px; line-height: 1.6;
+      min-height: 100svh; display: flex; flex-direction: column;
+    }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--acid); color:#000; }
+
+    /* ---------- nav ---------- */
+    nav {
+      border-bottom: 2px solid var(--line);
+      padding: 20px 40px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .n-logo { display: flex; align-items: center; gap: 12px; color: var(--acid); }
+    .n-logo svg { width: 32px; height: 32px; flex-shrink: 0; }
+    .n-logo-name {
+      font: 700 22px/1 var(--ff-disp);
+      letter-spacing: -.01em; text-transform: uppercase; color: var(--fg);
+    }
+    .n-back {
+      font: 500 13px/1 var(--ff-mono);
+      letter-spacing: .1em; text-transform: uppercase; color: var(--dim);
+    }
+    .n-back:hover { color: var(--acid); }
+
+    /* ---------- shell ---------- */
+    main { flex: 1; padding: 64px 40px 80px; max-width: 880px; margin: 0 auto; width: 100%; }
+
+    .s-label {
+      font: 500 13px/1 var(--ff-mono);
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--acid); margin-bottom: 18px;
+    }
+    h1 {
+      font: 700 clamp(44px,8vw,92px)/.9 var(--ff-disp);
+      letter-spacing: -.01em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .lede { font: 400 15px/1.7 var(--ff-mono); color: #c2c2c2; max-width: 520px; margin-bottom: 56px; }
+
+    fieldset { border: 0; }
+    legend {
+      font: 700 12px/1 var(--ff-mono);
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--acid); margin-bottom: 18px;
+    }
+
+    .field { margin-bottom: 22px; }
+    .field label {
+      display: block;
+      font: 500 12px/1 var(--ff-mono);
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--dim); margin-bottom: 9px;
+    }
+    .field .opt { color: #6a6a6a; text-transform: none; letter-spacing: 0; }
+    input[type=text], input[type=email], input[type=password], textarea {
+      width: 100%;
+      background: #141414; color: var(--fg);
+      border: 2px solid var(--line);
+      padding: 13px 15px;
+      font: 400 14px/1.5 var(--ff-mono);
+    }
+    input:focus, textarea:focus { outline: 0; border-color: var(--acid); }
+    textarea { resize: vertical; min-height: 88px; }
+
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+
+    /* ---------- dropzone ---------- */
+    .drop {
+      border: 2px dashed var(--line);
+      padding: 56px 28px; text-align: center;
+      cursor: pointer; transition: border-color .15s, background .15s;
+      margin-bottom: 20px;
+    }
+    .drop:hover, .drop.over { border-color: var(--acid); background: #131300; }
+    .drop.over { border-style: solid; }
+    .drop svg { width: 34px; height: 34px; color: var(--acid); margin: 0 auto 18px; display: block; }
+    .drop-t { font: 700 15px/1 var(--ff-disp); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 10px; }
+    .drop-s { font: 400 12px/1.6 var(--ff-mono); color: var(--dim); }
+
+    /* ---------- file list ---------- */
+    .files { border: 2px solid var(--line); margin-bottom: 26px; display: none; }
+    .files.show { display: block; }
+    .f-row {
+      display: grid; grid-template-columns: 1fr auto auto;
+      align-items: center; gap: 16px;
+      padding: 13px 16px; border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+    .f-row:last-child { border-bottom: 0; }
+    .f-name { font: 500 13px/1.4 var(--ff-mono); word-break: break-all; }
+    .f-size { font: 400 12px/1 var(--ff-mono); color: var(--dim); white-space: nowrap; }
+    .f-x {
+      background: none; border: 0; color: var(--dim); cursor: pointer;
+      font: 400 18px/1 var(--ff-mono); padding: 0 4px;
+    }
+    .f-x:hover { color: var(--red); }
+    .f-state { font: 500 11px/1 var(--ff-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--acid); white-space: nowrap; }
+    .f-bar { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: var(--acid); transition: width .2s linear; }
+    .f-row.done .f-bar { width: 100% !important; }
+    .f-row.failed .f-bar { background: var(--red); width: 100% !important; }
+    .f-row.failed .f-state { color: var(--red); }
+
+    /* ---------- actions ---------- */
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      font: 700 13px/1 var(--ff-mono);
+      letter-spacing: .1em; text-transform: uppercase;
+      background: var(--acid); color: #000;
+      border: 2px solid var(--acid); padding: 17px 34px;
+      cursor: pointer;
+    }
+    .btn:hover:not(:disabled) { background: var(--bg); color: var(--acid); }
+    .btn:disabled { opacity: .4; cursor: not-allowed; }
+    .btn svg { width: 15px; height: 15px; }
+
+    .actions { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-top: 34px; }
+    .total { font: 400 12px/1 var(--ff-mono); letter-spacing: .06em; color: var(--dim); }
+
+    .alert {
+      border-left: 2px solid var(--red);
+      background: #1a0f0f; padding: 13px 16px; margin-bottom: 26px;
+      font: 400 13px/1.6 var(--ff-mono); color: #ffb4b0; display: none;
+    }
+    .alert.show { display: block; }
+
+    hr.rule { border: 0; border-top: 2px solid var(--line); margin: 44px 0; }
+
+    /* ---------- done ---------- */
+    #done { display: none; text-align: center; padding: 60px 0; }
+    #done.show { display: block; }
+    #done .tick {
+      width: 64px; height: 64px; border: 2px solid var(--acid);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px; color: var(--acid);
+    }
+    #done .tick svg { width: 30px; height: 30px; }
+    #done h2 { font: 700 clamp(32px,5vw,52px)/.95 var(--ff-disp); text-transform: uppercase; margin-bottom: 16px; }
+    #done p { color: #c2c2c2; font-size: 14px; margin-bottom: 34px; }
+
+    footer {
+      border-top: 2px solid var(--line);
+      padding: 28px 40px; text-align: center;
+      font: 400 12px/1.6 var(--ff-mono); color: var(--dim);
+    }
+    footer a { color: var(--acid); }
+
+    @media (max-width: 680px) {
+      nav, main, footer { padding-left: 22px; padding-right: 22px; }
+      main { padding-top: 44px; }
+      .row { grid-template-columns: 1fr; gap: 0; }
+      .drop { padding: 40px 20px; }
+      .f-row { grid-template-columns: 1fr auto; row-gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://robrichardson.co.uk" class="n-logo" aria-label="Richardson home">
+    <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="150" cy="150" r="150" fill="currentColor"/>
+      <polygon points="214.6 159.2 220.7 85.8 79.3 85.8 85.4 159.2 63.1 159.2 150 238.8 236.9 159.2 214.6 159.2" fill="#0a0a0a"/>
+    </svg>
+    <span class="n-logo-name">Drop Box</span>
+  </a>
+  <a href="https://robrichardson.co.uk" class="n-back">← Richardson</a>
+</nav>
+
+<main>
+
+  <div id="form-view">
+    <p class="s-label">Send me files</p>
+    <h1>Drop<br>Box</h1>
+    <p class="lede">
+      Drag your files in and hit send. No account, no sign-in, no size limit.
+      They land straight in my Drive and I get a nudge the moment they arrive.
+    </p>
+
+    <div class="alert" id="alert" role="alert"></div>
+
+    <form id="form" novalidate>
+      <fieldset>
+        <legend>01 — Who's sending</legend>
+        <div class="row">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="email">Email <span class="opt">(optional)</span></label>
+            <input type="email" id="email" name="email" autocomplete="email">
+          </div>
+        </div>
+        <div class="field">
+          <label for="note">Anything I should know? <span class="opt">(optional)</span></label>
+          <textarea id="note" name="note" rows="3"></textarea>
+        </div>
+        <div class="field" id="pass-field">
+          <label for="passphrase">Passphrase</label>
+          <input type="password" id="passphrase" name="passphrase" autocomplete="off">
+        </div>
+      </fieldset>
+
+      <hr class="rule">
+
+      <fieldset>
+        <legend>02 — The files</legend>
+
+        <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose files">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M12 16V4M7 9l5-5 5 5M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
+          </svg>
+          <p class="drop-t">Drop files here</p>
+          <p class="drop-s">or click to choose · up to 25 files at a time</p>
+        </div>
+        <input type="file" id="picker" multiple hidden>
+
+        <div class="files" id="files"></div>
+
+        <div class="actions">
+          <button type="submit" class="btn" id="send" disabled>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M8 15V1M3 6l5-5 5 5"/>
+            </svg>
+            <span id="send-label">Send files</span>
+          </button>
+          <span class="total" id="total"></span>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+
+  <div id="done">
+    <div class="tick">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <path d="M20 6L9 17l-5-5"/>
+      </svg>
+    </div>
+    <h2>Got them</h2>
+    <p id="done-msg">Thanks — everything arrived safely.</p>
+    <a href="https://robrichardson.co.uk" class="btn">Back to the site</a>
+  </div>
+
+</main>
+
+<footer>
+  <p>A drop box by <a href="https://robrichardson.co.uk/">Rob Richardson</a> · Manchester, UK</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var CHUNK = 8 * 1024 * 1024;        // 8 MiB — must be a multiple of 256 KiB
+  var MAX_FILES = 25;
+  var mode = 'direct';                 // flips to 'proxy' if the browser can't reach Google
+  var queue = [];
+  var busy = false;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $('form'), drop = $('drop'), picker = $('picker'),
+      list = $('files'), send = $('send'), sendLabel = $('send-label'),
+      totalEl = $('total'), alertEl = $('alert');
+
+  function human(b) {
+    var u = ['B', 'KB', 'MB', 'GB', 'TB'], i = 0;
+    while (b >= 1024 && i < u.length - 1) { b /= 1024; i++; }
+    return (i === 0 ? b : b.toFixed(1)) + ' ' + u[i];
+  }
+
+  function warn(msg) {
+    alertEl.textContent = msg;
+    alertEl.classList.add('show');
+    alertEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  function clearWarn() { alertEl.classList.remove('show'); }
+
+  // ---------- file list ----------
+
+  function render() {
+    list.innerHTML = '';
+    queue.forEach(function (item, i) {
+      var row = document.createElement('div');
+      row.className = 'f-row';
+      row.id = 'row-' + i;
+
+      var name = document.createElement('div');
+      name.className = 'f-name';
+      name.textContent = item.file.name;
+
+      var size = document.createElement('div');
+      size.className = 'f-size';
+      size.textContent = human(item.file.size);
+
+      var right = document.createElement('div');
+      if (busy) {
+        right.className = 'f-state';
+        right.textContent = 'Waiting';
+        right.id = 'state-' + i;
+      } else {
+        var x = document.createElement('button');
+        x.type = 'button';
+        x.className = 'f-x';
+        x.setAttribute('aria-label', 'Remove ' + item.file.name);
+        x.textContent = '×';
+        x.onclick = function () { queue.splice(i, 1); render(); };
+        right.appendChild(x);
+      }
+
+      var bar = document.createElement('div');
+      bar.className = 'f-bar';
+      bar.id = 'bar-' + i;
+
+      row.appendChild(name);
+      row.appendChild(size);
+      row.appendChild(right);
+      row.appendChild(bar);
+      list.appendChild(row);
+    });
+
+    list.classList.toggle('show', queue.length > 0);
+    send.disabled = queue.length === 0 || busy;
+
+    var bytes = queue.reduce(function (n, i) { return n + i.file.size; }, 0);
+    totalEl.textContent = queue.length
+      ? queue.length + (queue.length === 1 ? ' file' : ' files') + ' · ' + human(bytes)
+      : '';
+  }
+
+  function addFiles(fileList) {
+    clearWarn();
+    var incoming = Array.prototype.slice.call(fileList);
+    for (var i = 0; i < incoming.length; i++) {
+      if (queue.length >= MAX_FILES) { warn('That’s the ' + MAX_FILES + '-file limit. Send the rest in a second batch.'); break; }
+      var f = incoming[i];
+      if (f.size === 0) { warn('"' + f.name + '" is empty, so I’ve skipped it.'); continue; }
+      var dupe = queue.some(function (q) { return q.file.name === f.name && q.file.size === f.size; });
+      if (!dupe) queue.push({ file: f });
+    }
+    render();
+  }
+
+  drop.addEventListener('click', function () { picker.click(); });
+  drop.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); picker.click(); }
+  });
+  picker.addEventListener('change', function () { addFiles(picker.files); picker.value = ''; });
+
+  ['dragenter', 'dragover'].forEach(function (ev) {
+    drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add('over'); });
+  });
+  ['dragleave', 'drop'].forEach(function (ev) {
+    drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove('over'); });
+  });
+  drop.addEventListener('drop', function (e) {
+    if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
+  });
+  window.addEventListener('dragover', function (e) { e.preventDefault(); });
+  window.addEventListener('drop', function (e) { e.preventDefault(); });
+
+  // ---------- transport ----------
+
+  function putChunk(ctx, blob, start, end) {
+    return new Promise(function (resolve, reject) {
+      var xhr = new XMLHttpRequest();
+
+      if (mode === 'direct') {
+        xhr.open('PUT', ctx.uploadUrl, true);
+        xhr.setRequestHeader('Content-Range', 'bytes ' + start + '-' + end + '/' + ctx.size);
+      } else {
+        xhr.open('POST', 'api.php?action=proxy&token=' + encodeURIComponent(ctx.token) +
+                 '&idx=' + ctx.idx + '&start=' + start + '&end=' + end, true);
+        xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+      }
+
+      xhr.upload.onprogress = function (e) {
+        if (e.lengthComputable) ctx.onProgress(start + e.loaded);
+      };
+      xhr.onload = function () {
+        if (mode === 'direct') {
+          if (xhr.status === 200 || xhr.status === 201 || xhr.status === 308) return resolve(xhr.status);
+          return reject(new Error('HTTP ' + xhr.status));
+        }
+        var res;
+        try { res = JSON.parse(xhr.responseText); } catch (err) { return reject(new Error('Bad response')); }
+        if (res && res.ok) return resolve(res.status);
+        reject(new Error((res && res.error) || 'Upload failed'));
+      };
+      xhr.onerror = function () { reject(new Error('network')); };
+      xhr.ontimeout = function () { reject(new Error('timeout')); };
+      xhr.send(blob);
+    });
+  }
+
+  function serverStatus(ctx) {
+    return fetch('api.php?action=status&token=' + encodeURIComponent(ctx.token) + '&idx=' + ctx.idx)
+      .then(function (r) { return r.json(); });
+  }
+
+  function uploadOne(ctx) {
+    var offset = 0, retries = 0;
+
+    function step() {
+      if (offset >= ctx.size) return Promise.resolve();
+
+      var end = Math.min(offset + CHUNK, ctx.size);
+      var blob = ctx.file.slice(offset, end);
+
+      return putChunk(ctx, blob, offset, end - 1)
+        .then(function () { offset = end; retries = 0; return step(); })
+        .catch(function (err) {
+          // First failure on the direct path: assume the browser can't talk to
+          // Google cross-origin and relay through the server instead.
+          if (mode === 'direct') { mode = 'proxy'; return step(); }
+
+          if (++retries > 3) throw err;
+
+          // Ask the server what Google actually holds, then carry on from there.
+          return serverStatus(ctx).then(function (s) {
+            if (!s.ok) throw err;
+            if (s.expired) throw new Error('The upload session expired. Please start again.');
+            if (s.complete) { offset = ctx.size; return; }
+            offset = s.received || offset;
+            return new Promise(function (r) { setTimeout(r, 900 * retries); }).then(step);
+          });
+        });
+    }
+
+    return step();
+  }
+
+  // ---------- submit ----------
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (busy || queue.length === 0) return;
+    clearWarn();
+
+    var name = $('name').value.trim();
+    if (!name) { warn('Please add your name so I know who sent them.'); $('name').focus(); return; }
+
+    busy = true;
+    render();
+    sendLabel.textContent = 'Uploading…';
+
+    var payload = {
+      passphrase: $('passphrase').value,
+      name: name,
+      email: $('email').value.trim(),
+      note: $('note').value.trim(),
+      files: queue.map(function (q) {
+        return { name: q.file.name, size: q.file.size, type: q.file.type || '' };
+      })
+    };
+
+    var token, failures = 0;
+
+    fetch('api.php?action=start', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.error || 'Could not start the upload.');
+        token = res.token;
+
+        return res.files.reduce(function (chain, f) {
+          return chain.then(function () {
+            var i = f.idx;
+            var item = queue[i];
+            var row = $('row-' + i), bar = $('bar-' + i), state = $('state-' + i);
+            if (state) state.textContent = 'Uploading';
+
+            var ctx = {
+              file: item.file, size: item.file.size, idx: i,
+              token: token, uploadUrl: f.uploadUrl,
+              onProgress: function (sent) {
+                if (bar) bar.style.width = Math.min(100, (sent / item.file.size) * 100) + '%';
+              }
+            };
+
+            return uploadOne(ctx)
+              .then(function () {
+                if (row) row.classList.add('done');
+                if (state) state.textContent = 'Sent';
+              })
+              .catch(function (err) {
+                failures++;
+                if (row) row.classList.add('failed');
+                if (state) state.textContent = 'Failed';
+                console.error('Upload failed for ' + item.file.name, err);
+              });
+          });
+        }, Promise.resolve());
+      })
+      .then(function () {
+        return fetch('api.php?action=finish&token=' + encodeURIComponent(token), { method: 'POST' })
+          .then(function (r) { return r.json(); });
+      })
+      .then(function (res) {
+        if (failures > 0) {
+          busy = false;
+          sendLabel.textContent = 'Retry the failed ones';
+          queue = queue.filter(function (q, i) {
+            var row = $('row-' + i);
+            return row && row.classList.contains('failed');
+          });
+          render();
+          warn(failures + (failures === 1 ? ' file' : ' files') + ' didn’t make it. Everything else arrived — hit send to try those again.');
+          return;
+        }
+        var n = (res && res.received) || queue.length;
+        $('done-msg').textContent = 'Thanks — ' + n + (n === 1 ? ' file' : ' files') +
+          ' landed safely. I’ll be in touch.';
+        $('form-view').style.display = 'none';
+        $('done').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+      .catch(function (err) {
+        busy = false;
+        sendLabel.textContent = 'Send files';
+        render();
+        warn(err.message || 'Something went wrong. Please try again.');
+      });
+  });
+
+  window.addEventListener('beforeunload', function (e) {
+    if (busy) { e.preventDefault(); e.returnValue = ''; }
+  });
+
+  render();
+})();
+</script>
+
+<noscript>
+  <p style="padding:40px;text-align:center;color:#a0a0a0">
+    This page needs JavaScript to upload files. Email them to me instead, or use WeTransfer.
+  </p>
+</noscript>
+
+</body>
+</html>

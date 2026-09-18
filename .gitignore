@@ -1,0 +1,5 @@
+
+# Drop box — never commit the real secrets
+private-config/config.php
+upload/*.sqlite*
+.DS_Store
